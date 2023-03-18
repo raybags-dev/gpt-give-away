@@ -15,7 +15,6 @@ module.exports = {
     stream.on('finish', () => {
       console.log('======== Done =======')
     })
-
     // Close the stream
     stream.end()
   }

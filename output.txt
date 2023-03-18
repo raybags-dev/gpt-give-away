@@ -738,3 +738,15 @@ Fusion reactions require the use of high energy sources, such as lasers, particl
 
 5. Implement a control system: Lastly, a control system will need to be implemented in order to regulate and adjust the operations of the reactor. This system should be capable of rapidly responding to changes in the reactor's environment, allowing the reactor to be shut down safely if a problem arises.
 **********************************
+
+1. Choose a suitable fissionable material.
+2. Place the fissionable material into the reactor core.
+3. Introduce neutrons into the core to initiate a chain reaction.
+4. Control and regulate the chain reaction by various means including neutron moderators, reflectors and control rods.
+5. Remove the heat generated from the chain reaction from the reactor core.
+6. Contain the reaction either by using a pressure vessel or a containment structure. 
+7. Mentain safety systems and carry out regular safety checks.
+**********************************
+
+The Mandalorian is a space Western web television series created by Jon Favreau for Disney+. It stars Pedro Pascal as a lone gunfighter in the outer reaches of the galaxy, far from the authority of the New Republic.
+**********************************
