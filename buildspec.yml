@@ -1,0 +1,99 @@
+version: 0.2
+
+run-as: Linux-user-name
+
+env:
+  shell: shell-tag
+  variables:
+    key1: "value1"
+    key2: "value2"
+  parameter-store:
+    key3: "value3"
+    key4: "value4"
+  exported-variables:
+    - variable1
+    - variable2
+  secrets-manager:
+    key: secret-id:json-key:version-stage:version-id
+  git-credential-helper: yes
+
+proxy:
+  upload-artifacts: yes
+  logs: yes
+
+batch:
+  fast-fail: false
+  # build-list:
+  # build-matrix:
+  # build-graph:
+
+phases:
+  install:
+    run-as: Linux-user-name
+    on-failure: CONTINUE
+    runtime-versions:
+      runtime1: version1
+      runtime2: version2
+    commands:
+      - command
+      - command
+    finally:
+      - command
+      - command
+  pre_build:
+    run-as: Linux-user-name
+    on-failure: CONTINUE
+    commands:
+      - command
+      - command
+    finally:
+      - command
+      - command
+  build:
+    run-as: Linux-user-name
+    on-failure: CONTINUE
+    commands:
+      - command
+      - command
+    finally:
+      - command
+      - command
+  post_build:
+    run-as: Linux-user-name
+    on-failure: CONTINUE
+    commands:
+      - command
+      - command
+    finally:
+      - command
+      - command
+reports:
+  report-group-name-or-arn:
+    files:
+      - location
+      - location
+    base-directory: location
+    discard-paths: no
+    file-format: report-format
+artifacts:
+  files:
+    - location
+    - location
+  name: artifact-name
+  discard-paths: no
+  base-directory: location
+  exclude-paths: excluded paths
+  enable-symlinks: no | yes
+  s3-prefix: prefix
+  secondary-artifacts:
+    artifactIdentifier:
+      files:
+        - location
+        - location
+      name: secondary-artifact-name
+      discard-paths: no | yes
+      base-directory: location
+cache:
+  paths:
+    - path
+    - path
