@@ -1,7 +1,7 @@
 # Use an official Node.js runtime as a parent image
 FROM node:14
 # Set the working directory to /app
-WORKDIR /app
+WORKDIR /ray-gpt
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 # Install dependencies
@@ -15,9 +15,7 @@ EXPOSE 4300
 # Create a named volume to store persistent data
 VOLUME [ "/app/data" ]
 # Set an environment variable for the Docker version
-ENV DOCKER_VERSION="01.01.2"
-# # Print the Docker version
-# RUN sh -c 'echo "Docker version: ${DOCKER_VERSION}" && docker version'
+ENV DOCKER_VERSION="1.0.0.1"
 # Set an argument for the Docker version
 ARG DOCKER_VERSION
 # Print the Docker version

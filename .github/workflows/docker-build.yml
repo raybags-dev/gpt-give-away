@@ -38,11 +38,11 @@ jobs:
         with:
           context: .
           push: true
-          tags: revraymondbaguma/wizard-chat:${{ github.sha }}
+          tags: revraymondbaguma/ray-gpt:${{ github.sha }}
 
       - name: Show Docker version
         run: |
-          docker run --rm revraymondbaguma/wizard-chat:${{ github.sha }} sh -c 'echo "Docker version: $(docker version --format "{{.Server.Version}}")"'
+          docker run --rm revraymondbaguma/ray-gpt:${{ github.sha }} sh -c 'echo "Docker version: $(docker version --format "{{.Server.Version}}")"'
 
       - name: Cleanup
         run: |

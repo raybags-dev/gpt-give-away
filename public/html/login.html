@@ -15,7 +15,6 @@
     <!-- font type -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
     <!-- custom css -->
-    <link rel="stylesheet" href="./styles/styles.css">
     <style>
         body {
             overflow: hidden !important;
@@ -25,9 +24,18 @@
             display: none;
         }
 
-        .col {
-            border: 1px solid transparent;
+        .log___in {
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            width: 50%;
             border-radius: .3rem;
+            transform: translate(-50%, -50%);
+        }
+
+        .bg-dark {
+            background-color: #343a40;
+            color: #fff;
         }
 
         #notifications {
@@ -66,108 +74,52 @@
             padding-bottom: 1rem
         }
 
-        .__2nd__main_out {
-            height: 78vh !important;
-            overflow: hidden;
-        }
-
-        #__outter1_container {
-            height: 100%;
-            max-height: 100%;
-            overflow: hidden;
-            border-radius: .4rem;
-            padding-bottom: 3rem;
-        }
-
-
-        @media screen and (max-width: 982px) {
-            #__outter1_container {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-        }
-
-        .card {
-            margin: .5rem;
-        }
-
-        .scroll__inner {
-            overflow: hidden auto;
-            max-height: inherit;
-            border-radius: .5rem;
-            height: 100%;
-            padding-bottom: 3rem;
-        }
-
         header {
             text-transform: uppercase;
         }
 
-        #message__center {
-            display: grid;
-            place-content: center;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            border-radius: .3rem;
-            bottom: 1%;
-            left: 0%;
-            right: 0%;
-            height: 10%;
-            min-width: fit-content !important;
+        @media screen and (max-width:779px) {
+            .log___in {
+                min-width: 100% !important;
+            }
         }
     </style>
     <!-- custom js -->
-    <script type="module" src="./runners/main.js" defer></script>
+    <script type="module" src="../runners/main.js" defer></script>
 </head>
 
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand p-2 mb-1" href="#">
-            <img src="./images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
+            <img src="../images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
                 class="d-inline-block align-text-top">
         </a>
-        <div class="container-fluid mb-1">
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-toggle" class="theme-toggle__checkbox" />
-                <label for="theme-toggle" class="theme-toggle__label"></label>
-            </div>
-            <div class="menu_container">
-                <a class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">Menu</a>
-                <ul id="drop_menu" class="dropdown-menu dropdown-menu-light">
-                    <li><a class="dropdown-item log_in" href="./html/login.html">Logout</a></li>
-                </ul>
-            </div>
-        </div>
     </nav>
-    <header class="container">
-        <h3>Assistant</h3>
-    </header>
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
-        <div class="container __2nd__main_out">
-            <hr>
-            <div id="__outter1_container" class="row row-cols-1 row-cols-md-2 g-4">
-                <div id="QN__container" class="col scroll__inner p-1">
-
+        <div class="container log___in container-fluid">
+            <h3 class="text-center p-3">Login</h3>
+            <form class="shadow-lg p-3 rounded pt-2">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" placeholder="email required" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">Your email is safe with me.</div>
+                    <div class="invalid-feedback"></div>
                 </div>
-
-                <div id="RES_container" class="col scroll__inner p-1">
-
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" placeholder="your required" class="form-control" id="exampleInputPassword1">
+                    <div class="invalid-feedback"></div>
                 </div>
-            </div>
-
-            <div id="message__center" class="container Q_n_A_form container-fluid">
-                <form class="input-group" action="submit" style="width:60vw;">
-                    <input type="text" class="form-control text-capitalize"
-                        style="background: rgb(232, 233, 233);margin-left:-1rem;" placeholder="type your question..."
-                        aria-label="">
-                    <button id="message__btn" disabled class="btn btn-lg btn-outline-secondary" type="button">Send
-                        Message</button>
-                </form>
-            </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Delete my data and all my documents on
+                        signout</label>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" disabled class="btn btn-secondary login_btn" type="button">Submit</button>
+                </div>
+            </form>
         </div>
     </main>
 
