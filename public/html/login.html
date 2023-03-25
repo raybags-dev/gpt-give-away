@@ -21,7 +21,7 @@
         }
 
         .hide {
-            display: none;
+            display: none !important;
         }
 
         .log___in {
@@ -83,6 +83,36 @@
                 min-width: 100% !important;
             }
         }
+
+        .loader {
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+
+        .loader:before,
+        .loader:after {
+            content: '';
+            border-radius: 50%;
+            position: absolute;
+            inset: 0;
+            box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+        }
+
+        .loader:after {
+            box-shadow: 0 2px 0 #FF3D00 inset;
+            animation: rotate 1.5s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
     </style>
     <!-- custom js -->
     <script type="module" src="../runners/main.js" defer></script>
@@ -98,17 +128,18 @@
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
         <div class="container log___in container-fluid">
             <h3 class="text-center p-3">Login</h3>
-            <form class="shadow-lg p-3 rounded pt-2">
+            <form id="login___form" class="shadow-lg p-3 rounded pt-2">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" placeholder="email required" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp">
+                    <input type="email" name="email" placeholder="email required" class="form-control"
+                        id="exampleInputEmail1" aria-describedby="emailHelp" required>
                     <div id="emailHelp" class="form-text">Your email is safe with me.</div>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" placeholder="your required" class="form-control" id="exampleInputPassword1">
+                    <input type="password" name="password" placeholder="your required" class="form-control"
+                        id="exampleInputPassword1" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3 form-check">
@@ -117,10 +148,12 @@
                         signout</label>
                 </div>
                 <div class="d-grid gap-2">
-                    <button type="submit" disabled class="btn btn-secondary login_btn" type="button">Submit</button>
+                    <button type="submit" class="btn btn-secondary login_btn" disabled>Submit</button>
                 </div>
             </form>
+
         </div>
+
     </main>
 
 
@@ -131,6 +164,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
         integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const loginForm = document.getElementById('login___form')
+        const submitButton = loginForm.querySelector('.login_btn')
+
+        loginForm.addEventListener('submit', async event => {
+            event.preventDefault()
+            // ...
+        })
+
+        const fields = loginForm.querySelectorAll('input[required], select[required], textarea[required]')
+
+        fields.forEach(field => {
+            field.addEventListener('input', () => {
+                const invalid = !field.checkValidity()
+
+                if (invalid) {
+                    field.classList.add('is-invalid')
+                    field.nextElementSibling.textContent = field.validationMessage
+                    submitButton.disabled = true
+                } else {
+                    field.classList.remove('is-invalid')
+                    field.nextElementSibling.textContent = ''
+                    submitButton.disabled = false
+                }
+            })
+        })
+
+    </script>
 </body>
 
 </html>

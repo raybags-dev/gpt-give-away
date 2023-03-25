@@ -1,26 +1,18 @@
-function QN_FACTORY (head, qn) {
-  const mainTheme = localStorage.getItem('theme')
-  const container = document.getElementById('QN__container')
-  const newCard = document.createElement('div')
-  newCard.classList.add(
-    'card',
-    'card_qn',
-    'shadow',
-    'shadow',
-    'rounded',
-    mainTheme === 'dark' ? 'card-dark-background' : 'card-light-background'
-  )
-
-  newCard.innerHTML = `
-      <div class="card-body">
-        <h5 class="card-title">${head || 'placeholder for question'}</h5>
-        <p class="card-text">${qn || 'placeholder for response'}</p>
-      </div>
-    `
-  container.insertBefore(newCard, container.firstChild)
-  return container.innerHTML
-}
-function RESPONSE_FACTORY (username, id, qn, qn_summery, response, created_at) {
+function RESPONSE_HTML (
+  id,
+  doc_generated,
+  qn,
+  res_summery,
+  response,
+  updatedAt
+) {
+  let res_sum =
+    res_summery
+      .trim()
+      .replace(/^[\W]+/g, '')
+      .split(' ')
+      .slice(0, 3)
+      .join(' ') + '...'
   const mainTheme = localStorage.getItem('theme')
   const resContainer = document.querySelector('#RES_container')
   const newResponse = document.createElement('div')
@@ -28,11 +20,13 @@ function RESPONSE_FACTORY (username, id, qn, qn_summery, response, created_at) {
     mainTheme === 'dark' ? 'card-dark-background' : 'card-light-background'
   newResponse.innerHTML = `
         <div class="card  shadow rounded ${cardClass}">
-        <div class="card-header bg-transparent border-success">${
-          username || 'username placeholder'
-        }</div>
+        <p class="card-header text-muted border-success">${
+          id || 'username placeholder'
+        }</p>
         <div class="card-body">
-            <p class="fst-italic">${id || ' id placeholder'}</p>
+            <p class="fst-italic text-muted">Generated on: ${
+              doc_generated || 'id placeholder'
+            }</p>
             <p class="card-text para__ans">${qn || 'question placeholder'}</p>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item bg-transparent">
@@ -40,7 +34,7 @@ function RESPONSE_FACTORY (username, id, qn, qn_summery, response, created_at) {
                         <button class="accordion-button rounded collapsed" type="button"
                             data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                             aria-expanded="false" aria-controls="flush-collapseOne">
-                            ${qn_summery || 'summery placeholder'}
+                            ${res_sum || 'summery placeholder'}
                         </button>
                     </h2>
                     <div id="flush-collapseOne" class="accordion-collapse collapse text-transparent"
@@ -53,15 +47,10 @@ function RESPONSE_FACTORY (username, id, qn, qn_summery, response, created_at) {
             </div>
         </div>
         <div class="card-footer"><small class="text-muted">${
-          created_at || 'timestamp placeholder'
+          updatedAt || 'timestamp placeholder'
         }</small>
         </div>`
   resContainer.prepend(newResponse)
 }
 
-// function handleLogOut () {
-//   localStorage.removeItem('userToken')
-//   window.location.href = '/public/html/login.html'
-// }
-
-export { QN_FACTORY, RESPONSE_FACTORY }
+export { RESPONSE_HTML }

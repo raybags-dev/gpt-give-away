@@ -146,7 +146,7 @@ body {
 }
 
 .card-light-background {
-    background-color: rgb(221, 221, 221) !important;
+    background-color: rgb(239, 239, 239, .5) !important;
     color: #191919 !important;
 }
 
@@ -162,13 +162,8 @@ body {
 
 /* ======================== */
 /* ======================== */
-.card_qn:hover,
 .card_ans:hover {
     cursor: pointer;
-}
-
-.card_qn {
-    border-radius: .5rem;
 }
 
 .para__ans {

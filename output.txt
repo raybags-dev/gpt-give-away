@@ -1,0 +1,187 @@
+
+
+Eclipse is an integrated development environment (IDE) used for programming and software development. It provides a base workspace with an extensible plug-in system for customizing codes and it supports multiple programming languages such as Java, C++, JavaScript, and more. Eclipse is available as both open source and commercially licensed software.
+**********************************
+
+A full eclipse is when the moon completely obscures the sun from view, totally blocking out the light from the sun and plunging the area into near darkness for a period of time. During a full eclipse, the sky darkens dramatically and the temperature may drop significantly. A full eclipse is an awe-inspiring and unforgettable natural phenomenon.
+**********************************
+
+A black home is an eco-friendly home that is designed to minimize the environmental impact of its inhabitants. It uses earth-friendly building materials and appliances, renewable energy sources, such as solar or wind power, and methods for recycling or reusing water. The goal of a black home is to reduce the carbon footprint of its occupants while still providing a comfortable living space.
+**********************************
+
+Apocalypse refers to the prophecy or prediction of an event involving the end of the world and, often, an imminent Catastrophe. It comes from the Greek word apokalypsis, which means "unveiling" or "revelation". Such predictions can be found in religious texts such as the Bible, particularly in the Book of Revelation.
+**********************************'s real name
+
+Superman's real name is Kal-El.
+**********************************
+
+Superman is a fictional superhero created by writer Jerry Siegel and artist Joe Shuster. He first appeared in Action Comics #1 in 1938. Superman is a powerful, invincible alien from the planet Krypton who fights for truth and justice on Earth. He is often seen fighting against super villains such as Lex Luthor and Brainiac.
+**********************************
+
+Fantastic Four is a team of superheroes in the Marvel Comics universe. The original team consisted of Mr. Fantastic, The Invisible Girl, The Human Torch and The Thing. Together they possess superhuman abilities that allow them to fight evil and protect the Earth from various threats.
+**********************************
+
+Joe Swansen is an American social entrepreneur and founder at BridgeEDU, an education technology company. He is also the Founder and CEO of SparkEDU, a technology-enabled learning platform for social change.
+**********************************
+Elasticsearch is a distributed, open source search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. It is used for full-text search, structured search, analytics, and all three in combination. Elasticsearch is built on Apache Lucene and is used by an extensive list of websites and services, including Wikipedia, StackOverflow, GitHub, and many more.
+**********************************:
+
+Depending on the specific project, there are a few different individuals who could make this happen. If the project involves creating something like a business plan or a marketing strategy, then a project manager or business consultant could be consulted for advice and guidance. For more technical projects, such as software development or website building, a software developer, web developer, or IT specialist could be hired to complete the work.
+**********************************
+
+My name is Eric.
+********************************** when you are sad
+
+When I'm sad, I usually try to take some time alone, take a few deep breaths, and focus on the positive things in my life. Sometimes, talking to a friend or engaging in a calming activity like reading or meditating can also help me feel better.
+**********************************
+
+Laughter, joy, smiling,
+Heartache, sadness, tears,
+Nature, beauty, wonder,
+Life, friends, and cheer.
+**********************************
+
+Math is the study of numbers, shapes, and patterns. It includes topics like arithmetic, algebra, geometry, trigonometry, calculus, and statistics. Math is used to solve problems in many areas of life, from science and engineering to business and finance.
+**********************************
+
+Math is the study of numbers, shapes, and patterns. It includes topics such as addition, subtraction, multiplication, division, algebra, geometry, trigonometry, and calculus. Math can be used to solve real-world problems and to understand the world around us.
+**********************************
+
+Maths is the study of numbers, quantities, shapes, and various patterns. It includes the study of topics such as algebra, geometry, calculus, statistics, and probability. Maths is used to solve problems in a variety of fields, such as science, engineering, economics, and finance.
+********************************** bd1
+
+Hi there! How can I help you?
+**********************************
+
+My name is Alex and I am a high school student. I have a strong interest in computers and technology, and I am also interested in animation and motion graphics. In my free time, I enjoy playing video games and exploring different areas of design.
+**********************************. What does this mean?
+
+This error message is telling you that the response from an API call you are making does not contain a 'status' property. This means that the API call has failed and the server could not reply with the expected response. You should check your API call and make sure it is correctly formed, and that the server is correctly configured.
+**********************************
+<code>import axios from 'axios'
+
+export default () =&gt; {
+    const instance = axios.create({
+        baseURL: process.env.API_URL
+    })
+
+    instance.interceptors.response.use(
+        (response) =&gt; {
+            return response
+        },
+        (error) =&gt; {
+
+            if (error.response &amp;&amp; error.response.status === 401) {
+                console.log('401')
+            }
+            return Promise.reject(error)
+        }
+    )
+    return instance
+}
+</code>
+I expect the interceptor to detect status 401 from the response object, but it fails with the message that I can't destructure 'status' of error.response.
+
+
+A:
+
+I think you might be missing some code in your code snippet. 
+Normally <code>error.response</code> will be an object containing information like following
+<code>{
+  data: {},
+  status: 401,
+  statusText: 'Unauthorized',
+  headers: {},
+  config: {},
+  request: {}
+}
+</code>
+so there should be no issue when you try to destructure status from the <code>error.response</code>, then something else is causing issue. 
+You can actually log the entire <code>error.response</code> object to see which property is causing an issue.
+<code>console.log(JSON.stringify(error.response));
+</code>
+
+**********************************a mujhse hai pahle ka nata koi
+
+This is a romantic song from the movie Aaye Din Bahar Ke (1966). The lyrics of the song are:
+
+Teri aankhon ki namkeen mastiyaan
+Behti hawaon mein udti fizaayen
+Haathon mein jaam hain, yaaron ka saath hain
+Aur isi bahaane zindagi hain
+
+Hum do rang yun hi milte rahe
+Pyar ki yeh duyaayein
+Chalti raahon mein sulagate rahe
+Yeh roshni ka jaisi taarein
+
+Chorus
+Hi tera mujhse hai pahle ka nata koi
+Yunhi nazdikiyon ka hai silsila
+Aaj tu gale mila le mujhe
+Daaman mein bhar le pyaar ka sab sansaar
+
+Neendon mein ab mere subah hain
+Chupke se tujhe dekha maine
+Tadapkar labon pe teri baat hain
+Kaun jaan sakega ik raaz yeh
+
+Hum do rang yun hi milte rahe
+Pyar ke yeh doyaayein
+Chalti raahon mein sulagate rahe
+Yeh roshni ka jaisi taarein
+
+Chorus
+Hi tera mujhse hai pahle ka nata koi
+Yunhi nazdikiyon ka hai silsila
+Aaj tu gale mila le mujhe
+Daaman mein bhar le pyaar ka sab sansaar
+**********************************
+
+Kubernetes is an open source container orchestration platform for automating deployment, scaling and management of containerized applications. It provides a complete platform to manage containerized workloads and services, with features such as service discovery, automated rollouts and rollbacks, resource scheduling, self-healing, and replication. Kubernetes gives you the power to scale applications up or down quickly and easily based on demand.
+**********************************
+
+Ansible is an open-source software platform for configuring and managing computers. It is designed to help manage complex infrastructure deployments, automate repetitive tasks, and enable the configuration and deployment of software applications over multiple systems. Ansible uses a simple automation language that allows users to easily describe their systems, deploy applications and perform other IT operations in a repeatable way.
+********************************** my name is Ryan
+
+Nice to meet you Ryan, I'm happy to meet you.
+**********************************
+
+Terraforming is the process of deliberately altering a planet or other body to make it more hospitable for human life. This could include anything from introducing an atmosphere with breathable oxygen, to planting vegetation and creating bodies of water on barren planets. The idea of terraforming has been proposed as a way to make distant planets more suitable for permanent human presence.
+**********************************
+
+This is not a valid command.
+**********************************
+
+Terraform is an open-source infrastructure as code software tool created by HashiCorp. It enables users to define and provision a datacenter infrastructure using a high-level configuration language known as HashiCorp Configuration Language (HCL), or optionally JSON. It supports multiple cloud providers such as Amazon Web Services, Microsoft Azure, IBM Cloud and Google Cloud Platform, as well as other services such as DNSimple and Heroku. With Terraform, users can define entire infrastructure stacks as code, maintain and version the configuration files, and create, modify, or destroy entire environments with the click of a button.
+**********************************
+
+Terraform is an orchestration tool used to automate the process of building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions. Infrastructure is described using a high-level configuration syntax and deployed using CLI commands. Terraform provides a simple way to define and manage infrastructure as code.
+**********************************
+
+A sunspot is a dark, temporary patch on the surface of the Sun, caused by concentrations of magnetic field that inhibit convection of the surrounding photosphere. Sunspots usually appear as dark spots compared to the surrounding regions of the Sun. They may range from only a few hundred kilometers in diameter, to over twenty times the size of the Earth.
+**********************************
+
+A supernova is a powerful and luminous stellar explosion. It is the brightest type of astronomical event known to occur in the universe, briefly becoming brighter than an entire galaxy. Supernovae occur when a star exhausts its nuclear fuel, causing it to collapse and then release a tremendous amount of energy.
+**********************************
+
+Monday
+**********************************
+
+The shortest way to Mars is the most direct route, which is the Hohmann Transfer Orbit. This requires approximately 7-9 months of travel time.
+**********************************
+
+My day of birth is February 5th.
+**********************************
+
+An equator is an imaginary line that divides the Earth into the Northern and Southern Hemispheres. It is also the widest circumference of the Earth and is located at 0 degrees latitude.
+********************************** scold
+
+The 'woke scold' is a term that has been used to describe an individual or group who advocates for and encourages progressive political causes, especially on social media, and is critical of anyone who does not agree with their point of view. They may be seen as overly aggressive and appear to practice a form of moralizing that some feel is excessive or unconstructive.
+**********************************
+
+Anaesthesia (sometimes spelled anesthesiology) is the practice of numbing a person or animal so that they do not feel pain during a medical procedure. It is typically administered through an injection, gas, or other medications. This allows doctors to safely perform procedures such as surgery without causing any pain or discomfort. The goal of anaesthesia is to ensure patient safety and comfort during medical procedures.
+**********************************
+
+Show bizz is an informal term that refers to the entertainment industry, which encompasses roles in stage and screen acting, directing, producing, script-writing, music publishing, audio engineering, cinematography, video editing, and more.
+**********************************

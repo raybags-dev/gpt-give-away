@@ -60,7 +60,7 @@ async function Login (app) {
       delete userObject.password
       res.json({ user: userObject })
     } catch (error) {
-      console.error(error)
+      console.log(error.message)
       res.status(500).json({ error: 'Server error' })
     }
   })
@@ -76,7 +76,6 @@ function AskGPT (app) {
         .sort({ createdAt: -1 })
         .exec()
 
-      console.log(req.user.userId)
       if (cachedResponse) {
         if (cachedResponse.user.toString() !== req.user.userId) {
           return res.status(401).json({ error: 'Unauthorized access' })
@@ -128,7 +127,7 @@ function AskGPT (app) {
   )
 }
 function GetPaginatedResults (app) {
-  app.get(
+  app.post(
     '/raybags/v1/wizard/data',
     authMiddleware,
     asyncMiddleware(async (req, res) => {
@@ -173,7 +172,7 @@ function GetPaginatedResults (app) {
   )
 }
 function FindOneItem (app) {
-  app.get(
+  app.post(
     '/raybags/v1/wizard/data/document/:id',
     authMiddleware,
     checkDocumentAccess,
@@ -216,38 +215,84 @@ function DeleteOne (app) {
   )
 }
 // get all docs
+// function GetAll (app) {
+//   app.get(
+//     '/raybags/v1/wizard/data/documents-all',
+//     authMiddleware,
+//     asyncMiddleware(async (req, res) => {
+//       const isAdmin = req.user.isAdmin
+//       let response
+
+//       if (isAdmin) {
+//         response = await GPT_RESPONSE.find({}, { token: 0 }).sort({
+//           createdAt: 1
+//         })
+//       } else {
+//         response = await GPT_RESPONSE.find(
+//           { user: req.user.data._id },
+//           { token: 0 }
+//         ).sort({
+//           createdAt: 1
+//         })
+//       }
+//       if (response.length === 0)
+//         return res.status(404).json('Sorry I have nothing for you!')
+
+//       let page = parseInt(req.query.page) || 1
+//       let perPage = parseInt(req.query.perPage) || 10
+//       let totalPages = Math.ceil(response.length / perPage)
+//       res.status(200).json({
+//         totalPages: totalPages,
+//         totalCount: response.length,
+//         data: response
+//       })
+//       return response
+//     })
+//   )
+// }
 function GetAll (app) {
-  app.get(
+  app.post(
     '/raybags/v1/wizard/data/documents-all',
     authMiddleware,
     asyncMiddleware(async (req, res) => {
       const isAdmin = req.user.isAdmin
-      let response
+      let query
 
       if (isAdmin) {
-        response = await GPT_RESPONSE.find({}, { token: 0 }).sort({
+        query = GPT_RESPONSE.find({}, { token: 0 }).sort({
           createdAt: 1
         })
       } else {
-        response = await GPT_RESPONSE.find(
+        query = GPT_RESPONSE.find(
           { user: req.user.data._id },
           { token: 0 }
         ).sort({
           createdAt: 1
         })
       }
-      if (response.length === 0)
-        return res.status(404).json('Sorry I have nothing for you!')
+
+      // clone the query object
+      const countQuery = query.model.find(query.getFilter())
+
+      // call countDocuments() on the cloned query object
+      const count = await countQuery.countDocuments()
 
       let page = parseInt(req.query.page) || 1
       let perPage = parseInt(req.query.perPage) || 10
-      let totalPages = Math.ceil(response.length / perPage)
+      let totalPages = Math.ceil(count / perPage)
+      const skip = (page - 1) * perPage
+
+      // use the original query object for pagination
+      const response = await query.skip(skip).limit(perPage)
+
+      if (response.length === 0)
+        return res.status(404).json('Sorry I have nothing for you!')
+
       res.status(200).json({
         totalPages: totalPages,
-        totalCount: response.length,
+        totalCount: count,
         data: response
       })
-      return response
     })
   )
 }

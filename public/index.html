@@ -14,6 +14,10 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- font type -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- custom css -->
     <link rel="stylesheet" href="./styles/styles.css">
     <style>
@@ -21,13 +25,33 @@
             overflow: hidden !important;
         }
 
-        .hide {
-            display: none;
+        #usage-btn {
+            position: fixed;
+            display: grid;
+            place-content: center;
+            bottom: 1%;
+            left: 1%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: transparent;
+            background: rgb(100, 100, 100, .5);
+            backdrop-filter: blur(2px);
+            text-align: center;
         }
 
-        .col {
-            border: 1px solid transparent;
-            border-radius: .3rem;
+        #usage-btn i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        #usage-btn:active i {
+            color: #19ff19;
+            transform: scale(.899);
+        }
+
+        .hide {
+            display: none !important;
         }
 
         #notifications {
@@ -41,7 +65,7 @@
             height: fit-content !important;
             backdrop-filter: blur(10px);
             margin-top: -10%;
-            background-color: rgba(103, 104, 105, 0.2);
+            background-color: rgba(103, 104, 105, 0.1);
             padding-bottom: 0% !important;
             padding-top: .5rem !important;
             transition: all .2s;
@@ -106,17 +130,47 @@
         }
 
         #message__center {
-            display: grid;
-            place-content: center;
-            justify-content: center;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             position: fixed;
             border-radius: .3rem;
+            width: 100% !important;
+            background-color: transparent !important;
             bottom: 1%;
             left: 0%;
             right: 0%;
             height: 10%;
-            min-width: fit-content !important;
+        }
+
+        .loader {
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+
+        .loader:before,
+        .loader:after {
+            content: '';
+            border-radius: 50%;
+            position: absolute;
+            inset: 0;
+            box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+        }
+
+        .loader:after {
+            box-shadow: 0 2px 0 #FF3D00 inset;
+            animation: rotate 1.5s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
         }
     </style>
     <!-- custom js -->
@@ -125,20 +179,20 @@
 
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand p-2 mb-1" href="#">
+        <a class="navbar-brand p-2 mb-1 shadow rounded rounded-circle" href="#">
             <img src="./images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
                 class="d-inline-block align-text-top">
         </a>
         <div class="container-fluid mb-1">
             <div class="theme-toggle">
-                <input type="checkbox" id="theme-toggle" class="theme-toggle__checkbox" />
+                <input type="checkbox" id="theme-toggle" class="theme-toggle__checkbox shadow" />
                 <label for="theme-toggle" class="theme-toggle__label"></label>
             </div>
-            <div class="menu_container">
+            <div class="menu_container shadow rounded">
                 <a class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Menu</a>
                 <ul id="drop_menu" class="dropdown-menu dropdown-menu-light">
-                    <li><a class="dropdown-item log_in" href="./html/login.html">Logout</a></li>
+                    <li><a class="dropdown-item log_out_btn" href="#">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -146,29 +200,31 @@
     <header class="container">
         <h3>Assistant</h3>
     </header>
+
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
         <div class="container __2nd__main_out">
             <hr>
-            <div id="__outter1_container" class="row row-cols-1 row-cols-md-2 g-4">
-                <div id="QN__container" class="col scroll__inner p-1">
-
-                </div>
-
-                <div id="RES_container" class="col scroll__inner p-1">
-
+            <div id="__outter1_container" class="g-4">
+                <div id="RES_container" class="container container-fluid  scroll__inner p-1">
                 </div>
             </div>
 
-            <div id="message__center" class="container Q_n_A_form container-fluid">
-                <form class="input-group" action="submit" style="width:60vw;">
-                    <input type="text" class="form-control text-capitalize"
-                        style="background: rgb(232, 233, 233);margin-left:-1rem;" placeholder="type your question..."
-                        aria-label="">
+            <div id="message__center" class=" Q_n_A_form">
+                <form id="question____form" class="input-group container container-fluid" action="submit">
+                    <input style="text-shadow: 1px 1px 0px white;" id="qn-inpuut" type="text" class="form-control"
+                        placeholder="type your question..." aria-label="">
                     <button id="message__btn" disabled class="btn btn-lg btn-outline-secondary" type="button">Send
                         Message</button>
                 </form>
             </div>
         </div>
+
+        <a tabindex="0" id="usage-btn" role="button" class="popover-dismiss text-black" data-bs-toggle="popover"
+            data-bs-trigger="focus"
+            data-bs-content="Any question you ask will be responded to and your response will be stored in your own database instance. You have full access to your content and you can delete it any moment">
+            <i class=" fa-regular fa-circle-question"></i>
+        </a>
+
     </main>
 
 
@@ -179,6 +235,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
         integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- popper js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"
+        integrity="sha512-uaZ0UXmB7NHxAxQawA8Ow2wWjdsedpRu7nJRSoI2mjnwtY8V5YiCWavoIpo1AhWPMLiW5iEeavmA3JJ2+1idUg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+            trigger: 'focus'
+        })
+    </script>
 </body>
 
 </html>
