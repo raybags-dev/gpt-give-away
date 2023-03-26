@@ -247,6 +247,37 @@
                 transform: rotate(360deg)
             }
         }
+
+        @media screen and (max-width:450px) {
+            #question____form {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-content: center !important;
+            }
+
+            #question____form>* {
+                min-width: 100% !important;
+                margin-bottom: .5rem;
+            }
+
+            #usage-btn {
+                bottom: 40%;
+                opacity: .1;
+            }
+
+            #usage-btn:hover {
+                opacity: 1;
+            }
+
+            header h3 {
+                font-size: 1rem;
+            }
+
+            #message__btn {
+                font-size: 1rem;
+            }
+        }
     </style>
     <!-- custom js -->
     <script type="module" src="./runners/main.js" defer></script>
