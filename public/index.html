@@ -25,6 +25,10 @@
             overflow: hidden !important;
         }
 
+        .summery_smry:hover {
+            cursor: pointer;
+        }
+
         modal-bg {
             background-color: #343a40;
             color: #fff;
@@ -135,13 +139,11 @@
             }
         }
 
-        /*===============================================*/
         .bring_in {
             transition: all ease-in .2s;
             transform: translateY(0px) !important;
         }
 
-        /*===============================================*/
         .card::before {
             content: "";
             position: absolute;
@@ -150,6 +152,7 @@
             top: 0;
             left: 0;
             opacity: 0;
+            z-index: -10 !important;
             border-top: 3px solid transparent;
             border-left: 3px solid transparent;
             border-radius: 5px;
@@ -164,6 +167,7 @@
             bottom: 0;
             right: 0;
             opacity: 0;
+            z-index: -10 !important;
             border-right: 3px solid transparent;
             border-bottom: 3px solid transparent;
             border-radius: 5px;
@@ -171,19 +175,19 @@
         }
 
         .card:hover::before {
-            width: 4%;
-            height: 20%;
+            width: 100%;
+            height: 100%;
             opacity: 1;
-            border-top-color: rgb(200, 202, 202, .4);
-            border-left-color: rgb(194, 195, 195, .4);
+            border-top-color: rgb(200, 202, 202, .2);
+            border-left-color: rgb(194, 195, 195, .2);
         }
 
         .card:hover::after {
-            width: 4%;
-            height: 20%;
+            width: 100%;
+            height: 100%;
             opacity: 1;
-            border-right-color: rgb(200, 202, 202, .4);
-            border-bottom-color: rgb(194, 195, 195, .4);
+            border-right-color: rgb(200, 202, 202, .2);
+            border-bottom-color: rgb(194, 195, 195, .2);
         }
 
 
@@ -197,6 +201,7 @@
 
         header {
             text-transform: uppercase;
+            opacity: .7;
         }
 
         #message__center {
@@ -273,7 +278,6 @@
     </header>
 
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
-
         <div class="container __2nd__main_out">
             <hr>
             <div id="__outter1_container" class="g-4">
@@ -286,13 +290,12 @@
                     <input style="text-shadow: 1px 1px 0px white;" id="qn-inpuut" type="text"
                         class="shadow rounded form-control" placeholder="type your question..." aria-label="">
                     <button id="message__btn" disabled class="btn btn-lg btn-outline-secondary shadow rounded"
-                        type="button">Send
-                        Message</button>
+                        type="button">Send Message</button>
                 </form>
             </div>
         </div>
 
-        <a tabindex="0" id="usage-btn" role="button" class="popover-dismiss text-black" data-bs-toggle="popover"
+        <a tabindex="0" id="usage-btn" role="button" class="popover-dismiss" data-bs-toggle="popover"
             data-bs-trigger="focus"
             data-bs-content="Any question you ask will be responded to and your response will be stored in your own database instance. You have full access to your content and you can delete it any moment">
             <i class=" fa-regular fa-circle-question"></i>

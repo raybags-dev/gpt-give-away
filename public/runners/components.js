@@ -1,10 +1,11 @@
 function RESPONSE_HTML (
-  id,
+  email,
   doc_generated,
   qn,
   res_summery,
   response,
-  updatedAt
+  updatedAt,
+  id
 ) {
   let res_sum =
     res_summery
@@ -20,16 +21,18 @@ function RESPONSE_HTML (
     mainTheme === 'dark' ? 'card-dark-background' : 'card-light-background'
   newResponse.innerHTML = `
         <div class="card  shadow rounded ${cardClass}">
-        <p class="card-header text-muted">${id || 'username placeholder'}</p>
+        <a class="btn-close rounded" style="position:fixed;right:1%;top:2%;width:10px;height:10px;"></a>
+        <p class="card-header text-muted">${email || 'username placeholder'}</p>
+
         <div class="card-body">
-            <p class="fst-italic text-muted">Generated on: ${
+            <p class="fst-italic text-muted">Created: ${
               doc_generated || 'id placeholder'
             }</p>
             <p class="card-text para__ans">${qn || 'question placeholder'}</p>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item bg-transparent">
                     <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button rounded collapsed" type="button"
+                        <button class="accordion-button summery_smry rounded collapsed" style="z-index:10000" type="button"
                             data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                             aria-expanded="false" aria-controls="flush-collapseOne">
                             ${res_sum || 'summery placeholder'}
@@ -44,9 +47,10 @@ function RESPONSE_HTML (
                 </div>
             </div>
         </div>
-        <div class="card-footer"><small class="text-muted">${
-          updatedAt || 'timestamp placeholder'
-        }</small>
+        <div class="card-footer"><small class="text-muted">
+        <span class="float-start">${updatedAt || 'timestamp placeholder'}</span>
+        <span class="float-end">${id || 'timestamp placeholder'}</span>
+        </small>
         </div>`
   resContainer.prepend(newResponse)
 }

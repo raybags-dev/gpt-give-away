@@ -44,7 +44,6 @@ const LOGOUT = e => {
   sessionStorage.setItem('redirected', true)
 }
 logoutButton?.addEventListener('click', LOGOUT)
-// call usage modle
 // ask question
 handleQuestionFormSubmit()
 FETCH_DATA()

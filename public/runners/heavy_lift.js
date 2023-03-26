@@ -19,7 +19,6 @@ api.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
 function showNotification (heading, message) {
   // Check if a notification already exists and remove it
   const existingNotification = document.getElementById('notifications')
@@ -81,7 +80,6 @@ function runLoader (isDone, message = 'Processing...') {
     }
   }
 }
-
 // signup def
 function SIGNUP (signupForm) {
   signupForm?.addEventListener('submit', async event => {
@@ -187,19 +185,14 @@ function INITIALIZER () {
   })
 }
 // ========== QUETION HANDLER ==================
+
 function handleQuestionFormSubmit () {
   const question_formm = document.getElementById('question____form')
   const input = document.querySelector('#qn-inpuut')
   const button = document.querySelector('#message__btn')
 
-  input?.addEventListener('input', () => {
-    const inputLength = input.value.trim().length
-    button.disabled = inputLength < 5
-  })
-
-  question_formm?.addEventListener('submit', async event => {
+  const submitForm = async () => {
     runLoader(false)
-    event.preventDefault()
     const data = input.value.trim()
 
     if (!data) {
@@ -232,12 +225,13 @@ function handleQuestionFormSubmit () {
         const response = await api.post(url, query, { headers })
         const latestQuestion = response.data.data[0]
         RESPONSE_HTML(
-          latestQuestion._id,
+          email,
           formatDate(latestQuestion.createdAt),
           latestQuestion.question,
           latestQuestion.response,
           latestQuestion.response,
           latestQuestion.updatedAt,
+          latestQuestion.user,
           true // set as latest question with expandable summary
         )
 
@@ -258,8 +252,24 @@ function handleQuestionFormSubmit () {
       button.textContent = 'Send Message'
       input.focus()
     }
+  }
+
+  input?.addEventListener('input', () => {
+    const inputLength = input.value.trim().length
+    button.disabled = inputLength < 5
+  })
+
+  question_formm?.addEventListener('submit', event => {
+    event.preventDefault()
+    submitForm()
+  })
+
+  button?.addEventListener('click', event => {
+    event.preventDefault()
+    submitForm()
   })
 }
+
 async function FETCH_DATA () {
   try {
     // Check if user is logged in
@@ -293,14 +303,16 @@ async function FETCH_DATA () {
     if (res.statusText == 'OK') {
       const { data } = await res.data
       data.forEach(async (obj, index) => {
-        const { _id, question, response, updatedAt, createdAt } = await obj
+        const { _id, question, response, updatedAt, createdAt, user } =
+          await obj
         RESPONSE_HTML(
-          _id,
+          email,
           formatDate(createdAt),
           question,
           response,
           response,
-          updatedAt
+          updatedAt,
+          user
         )
         const responses = document.querySelectorAll('.card')
         const lastIndex = responses.length - 1
@@ -311,7 +323,7 @@ async function FETCH_DATA () {
       return
     }
     showNotification(
-      '....',
+      'Failed',
       'Something went wrong. Try to ask your question again'
     )
   } catch (error) {
