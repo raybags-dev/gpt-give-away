@@ -20,9 +20,7 @@ function RESPONSE_HTML (
     mainTheme === 'dark' ? 'card-dark-background' : 'card-light-background'
   newResponse.innerHTML = `
         <div class="card  shadow rounded ${cardClass}">
-        <p class="card-header text-muted border-success">${
-          id || 'username placeholder'
-        }</p>
+        <p class="card-header text-muted">${id || 'username placeholder'}</p>
         <div class="card-body">
             <p class="fst-italic text-muted">Generated on: ${
               doc_generated || 'id placeholder'

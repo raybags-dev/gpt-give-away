@@ -58,7 +58,7 @@ async function Login (app) {
       // Return the user object without the password
       const userObject = user.toObject()
       delete userObject.password
-      res.json({ user: userObject })
+      res.status(200).json({ user: userObject })
     } catch (error) {
       console.log(error.message)
       res.status(500).json({ error: 'Server error' })
@@ -257,7 +257,6 @@ function GetAll (app) {
     asyncMiddleware(async (req, res) => {
       const isAdmin = req.user.isAdmin
       let query
-
       if (isAdmin) {
         query = GPT_RESPONSE.find({}, { token: 0 }).sort({
           createdAt: 1
@@ -266,25 +265,18 @@ function GetAll (app) {
         query = GPT_RESPONSE.find(
           { user: req.user.data._id },
           { token: 0 }
-        ).sort({
-          createdAt: 1
-        })
+        ).sort({ createdAt: 1 })
       }
-
       // clone the query object
       const countQuery = query.model.find(query.getFilter())
-
       // call countDocuments() on the cloned query object
       const count = await countQuery.countDocuments()
-
       let page = parseInt(req.query.page) || 1
       let perPage = parseInt(req.query.perPage) || 10
       let totalPages = Math.ceil(count / perPage)
       const skip = (page - 1) * perPage
-
       // use the original query object for pagination
       const response = await query.skip(skip).limit(perPage)
-
       if (response.length === 0)
         return res.status(404).json('Sorry I have nothing for you!')
 
@@ -322,7 +314,7 @@ function DeleteAll (app) {
     })
   )
 }
-// delete a user and all their docs
+// delete a user and all their docs (ONLY ACCESSIBLE BY ADMIN)
 function deleteAllForUser (app) {
   app.delete(
     '/raybags/v1/wizard/delete-user/:userId',
@@ -353,6 +345,62 @@ function deleteAllForUser (app) {
     })
   )
 }
+function deleteUserAndOwnDocs (app) {
+  app.delete(
+    '/raybags/v1/wizard/purge-account/:userId',
+    authMiddleware,
+    asyncMiddleware(async (req, res) => {
+      const userId = req.params.userId
+      // Check if the user exists
+      const user = await USER_MODEL.findById(
+        { _id: userId },
+        { isAdmin: 0, password: 0, _id: 0, userId: 0 }
+      )
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+      // Delete all documents associated with the user
+      await GPT_RESPONSE.deleteMany({ user: userId })
+      // Delete the user
+      const { acknowledged } = await USER_MODEL.deleteOne({
+        _id: userId
+      })
+      const { name, email, createdAt } = user
+      res.status(200).json({
+        status: acknowledged,
+        user_profile: { username: name, user_email: email, createdAt },
+        message: `User profile ${userId}, and all related documents has been deleted`
+      })
+    })
+  )
+}
+function FindUser (app) {
+  app.post(
+    '/raybags/v1/wizard/user/token',
+    authMiddleware,
+    asyncMiddleware(async (req, res) => {
+      try {
+        const userEmail = req.body.email
+        console.log(userEmail)
+        if (!userEmail) {
+          return res
+            .status(400)
+            .json({ error: 'Missing email in request body' })
+        }
+        const user = await USER_MODEL.findOne({ email: userEmail })
+        if (!user) {
+          return res.status(404).json({ error: 'User not found' })
+        }
+        const { email, _id } = user
+        res.status(200).json({ email, _id })
+      } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Server error' })
+      }
+    })
+  )
+}
+
 function NotSupported (req, res, next) {
   res.status(502).sendFile(fallbackPagePath)
 }
@@ -366,5 +414,7 @@ module.exports = {
   FindOneItem,
   DeleteAll,
   NotSupported,
-  deleteAllForUser
+  deleteAllForUser,
+  deleteUserAndOwnDocs,
+  FindUser
 }

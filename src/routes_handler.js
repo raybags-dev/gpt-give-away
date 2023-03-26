@@ -9,6 +9,8 @@ const {
   FindOneItem,
   DeleteAll,
   deleteAllForUser,
+  FindUser,
+  deleteUserAndOwnDocs,
   NotSupported
 } = require('../functions/router')
 
@@ -22,5 +24,7 @@ module.exports = async app => {
   FindOneItem(app)
   deleteAllForUser(app)
   DeleteAll(app)
+  FindUser(app)
+  deleteUserAndOwnDocs(app)
   app.use(NotSupported)
 }

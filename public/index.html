@@ -25,6 +25,11 @@
             overflow: hidden !important;
         }
 
+        modal-bg {
+            background-color: #343a40;
+            color: #fff;
+        }
+
         #usage-btn {
             position: fixed;
             display: grid;
@@ -114,8 +119,73 @@
         }
 
         .card {
+            position: relative;
             margin: .5rem;
+            transition: all ease-in .05s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: animate-card 1 forwards ease-in .2s;
         }
+
+        @keyframes animate-card {
+            to {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        /*===============================================*/
+        .bring_in {
+            transition: all ease-in .2s;
+            transform: translateY(0px) !important;
+        }
+
+        /*===============================================*/
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            border-top: 3px solid transparent;
+            border-left: 3px solid transparent;
+            border-radius: 5px;
+            transition: all ease .3s;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            border-right: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            border-radius: 5px;
+            transition: all ease .3s;
+        }
+
+        .card:hover::before {
+            width: 4%;
+            height: 20%;
+            opacity: 1;
+            border-top-color: rgb(200, 202, 202, .4);
+            border-left-color: rgb(194, 195, 195, .4);
+        }
+
+        .card:hover::after {
+            width: 4%;
+            height: 20%;
+            opacity: 1;
+            border-right-color: rgb(200, 202, 202, .4);
+            border-bottom-color: rgb(194, 195, 195, .4);
+        }
+
 
         .scroll__inner {
             overflow: hidden auto;
@@ -193,6 +263,7 @@
                     aria-expanded="false">Menu</a>
                 <ul id="drop_menu" class="dropdown-menu dropdown-menu-light">
                     <li><a class="dropdown-item log_out_btn" href="#">Logout</a></li>
+                    <li><a id="del__btn" class="dropdown-item log_out_btn" href="#">Develet account</a></li>
                 </ul>
             </div>
         </div>
@@ -202,6 +273,7 @@
     </header>
 
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
+
         <div class="container __2nd__main_out">
             <hr>
             <div id="__outter1_container" class="g-4">
@@ -211,9 +283,10 @@
 
             <div id="message__center" class=" Q_n_A_form">
                 <form id="question____form" class="input-group container container-fluid" action="submit">
-                    <input style="text-shadow: 1px 1px 0px white;" id="qn-inpuut" type="text" class="form-control"
-                        placeholder="type your question..." aria-label="">
-                    <button id="message__btn" disabled class="btn btn-lg btn-outline-secondary" type="button">Send
+                    <input style="text-shadow: 1px 1px 0px white;" id="qn-inpuut" type="text"
+                        class="shadow rounded form-control" placeholder="type your question..." aria-label="">
+                    <button id="message__btn" disabled class="btn btn-lg btn-outline-secondary shadow rounded"
+                        type="button">Send
                         Message</button>
                 </form>
             </div>

@@ -143,9 +143,8 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Delete my data and all my documents on
-                        signout</label>
+                    <input type="checkbox" class="form-check-input pointer-event" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Take me to signup page</label>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-secondary login_btn" disabled>Submit</button>
@@ -171,7 +170,6 @@
 
         loginForm.addEventListener('submit', async event => {
             event.preventDefault()
-            // ...
         })
 
         const fields = loginForm.querySelectorAll('input[required], select[required], textarea[required]')
@@ -192,6 +190,11 @@
             })
         })
 
+        document.querySelector('#exampleCheck1').addEventListener('click', () => {
+            if (document.querySelector('#exampleCheck1').checked) {
+                window.location.href = '/html/signup.html';
+            }
+        });
     </script>
 </body>
 

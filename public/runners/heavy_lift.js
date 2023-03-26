@@ -57,7 +57,7 @@ function showNotification (heading, message) {
   }, 5000)
 }
 // Main page loader
-function runLoader (isDone) {
+function runLoader (isDone, message = 'Processing...') {
   const loader = document.querySelector('#main-page-loader')
   if (!isDone) {
     if (!loader) {
@@ -66,7 +66,7 @@ function runLoader (isDone) {
           style="position:fixed; top:0; left:0; right:0; bottom:0;z-index:3000">
           <div class="d-flex">
             <h3 class="fs-4" id="my_text" style="position:absolute;top:50%;opacity:.7;left:50%;transform:translate(-50%, -50%);">
-              Processing...
+              ${message}
             </h3>
             <span class="loader text-white" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);"></span>
           </div>
@@ -81,6 +81,7 @@ function runLoader (isDone) {
     }
   }
 }
+
 // signup def
 function SIGNUP (signupForm) {
   signupForm?.addEventListener('submit', async event => {
@@ -121,7 +122,7 @@ function SIGNUP (signupForm) {
       if (error.response.status == 409) {
         showNotification(
           'Account exists!',
-          `It'd seem you already have an account. You'll be redirected to login page`
+          `It'd seem you already have an account. Reedirected to login page...`
         )
         sessionStorage.setItem('redirected', true)
         setTimeout(() => {
@@ -138,6 +139,7 @@ function SIGNUP (signupForm) {
 // login def
 function LOGIN (loginForm) {
   loginForm?.addEventListener('submit', async event => {
+    runLoader(false, 'On it....')
     event.preventDefault()
     const formData = new FormData(loginForm)
     const email = formData.get('email')
@@ -146,21 +148,23 @@ function LOGIN (loginForm) {
     try {
       let url = '/login'
       const response = await api.post(url, { email, password })
-
-      const token = response.headers.authorization.split(' ')[1]
-      sessionStorage.setItem('token', JSON.stringify({ token, email }))
-      // Redirect to main page
-      sessionStorage.setItem('redirected', true)
-      showNotification('Success', `You have successfully logged in.`)
-      setTimeout(() => {
+      if (response.status == 200) {
         runLoader(true)
-        window.location.href = '../index.html'
-      }, 3000)
+        const token = response.headers.authorization.split(' ')[1]
+        sessionStorage.setItem('token', JSON.stringify({ token, email }))
+        // Redirect to main page
+        sessionStorage.setItem('redirected', true)
+        showNotification('Success', `You have successfully logged in.`)
+        setTimeout(() => {
+          runLoader(true)
+          window.location.href = '../index.html'
+        }, 3000)
+      }
     } catch (error) {
-      runLoader(false)
+      runLoader(false, 'Failed!')
       const errorMessage =
         error.response.data.error || 'An error occurred during login'
-      showNotification('Error', `Credentials not recognized - ${errorMessage}.`)
+      showNotification('Credentials issue.', `${errorMessage}.`)
       setTimeout(() => runLoader(true), 3000)
     }
   })
@@ -288,7 +292,7 @@ async function FETCH_DATA () {
     })
     if (res.statusText == 'OK') {
       const { data } = await res.data
-      data.forEach(async obj => {
+      data.forEach(async (obj, index) => {
         const { _id, question, response, updatedAt, createdAt } = await obj
         RESPONSE_HTML(
           _id,
@@ -298,6 +302,11 @@ async function FETCH_DATA () {
           response,
           updatedAt
         )
+        const responses = document.querySelectorAll('.card')
+        const lastIndex = responses.length - 1
+        if (index === lastIndex) {
+          responses[lastIndex].classList.add('bring_in')
+        }
       })
       return
     }
@@ -321,6 +330,7 @@ async function FETCH_DATA () {
 }
 
 export {
+  api,
   SIGNUP,
   showNotification,
   runLoader,

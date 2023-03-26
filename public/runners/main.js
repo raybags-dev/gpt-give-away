@@ -1,5 +1,6 @@
 'use strict'
 import { TOGGLE_THEME } from './themes.js'
+import { generateDeleteModel } from './handlers.js'
 import {
   SIGNUP,
   LOGIN,
@@ -10,6 +11,7 @@ import {
 const signupForm = document.querySelector('#signup-form')
 const loginForm = document.querySelector('#login___form')
 const logoutButton = document.querySelector('.log_out_btn')
+const deleteAccountBTN = document.querySelector('#del__btn')
 
 TOGGLE_THEME()
 // Initial setup
@@ -46,3 +48,6 @@ logoutButton?.addEventListener('click', LOGOUT)
 // ask question
 handleQuestionFormSubmit()
 FETCH_DATA()
+deleteAccountBTN.addEventListener('click', () => {
+  generateDeleteModel()
+})

@@ -185,3 +185,84 @@ Anaesthesia (sometimes spelled anesthesiology) is the practice of numbing a pers
 
 Show bizz is an informal term that refers to the entertainment industry, which encompasses roles in stage and screen acting, directing, producing, script-writing, music publishing, audio engineering, cinematography, video editing, and more.
 **********************************
+
+State management is the process of managing application state, which refers to data and information that is created, stored, and utilized within a program as it runs. State management involves techniques for maintaining and tracking changes in application data over time, as well as controlling how parts of an application access and manipulate that data.
+**********************************
+
+A solar spot is a dark, cooler area that is slightly less reflective than its surroundings on the surface of the sun. They are visible when looking at images of the sun taken in ultraviolet or hydrogen-alpha wavelengths. Solar spots are caused by intense magnetic activity on the sun's surface and are associated with solar flare activity.
+**********************************
+
+Anacondas can grow up to 20 feet in length and weigh up to 500 pounds.
+**********************************eeg
+
+Onofleeseeg is a traditional Anishinaabe song, which is sung and danced to celebrate the season of springtime. The lyrics often explore themes related to the natural world and the spiritual teachings of the Anishinaabe people.
+**********************************
+
+Jagongout is an online game portal where you can play browser-based and mobile games directly in your web browser. The site offers over 700 games and is updated regularly with new content, including both classic and modern titles. Jagongout also provides exclusive access to special game events, contests, and tournaments.
+**********************************
+
+UWV is the Employee Insurance Agency of The Netherlands. It is a government agency responsible for the payment of social security benefits for employees, through sickness, disability and unemployment insurance. UWV also helps employers find suitable work for disabled workers, and provides support in complying with employment laws.
+**********************************
+
+The Milky Way galaxy, which contains our Solar System, measures approximately 120,000 light-years in diameter and is estimated to contain up to 400 billion stars.
+**********************************
+
+There is no definitive answer to this question, as the number of black holes in the Milky Way galaxy is not fully known. Estimates range from 10 million to 100 million, and a significant portion of these black holes may be too small to observe or detect.
+**********************************
+
+Jupiter is the fifth and largest planet in our Solar System. It is a gas giant composed of mostly hydrogen and helium, with clouds made up of ammonia crystals. It is the most massive planet in our Solar System, with two and a half times the mass of all other planets combined. Jupiter has a powerful magnetosphere and 79 known moons.
+**********************************
+
+Sis is not a name, so it's not possible to give an answer.
+**********************************
+
+1. Install Ansible:
+
+Before you can use Ansible for your projects, you'll first need to install it on your machine. If you're running a Linux environment, you can download Ansible from the package manager. Or you can also install Ansible using pip. 
+
+2. Set up Ansible Inventory:
+
+Ansible Inventory is a collection of hosts to be managed by Ansible. You'll need to define the different hosts and groups of hosts in the inventory in order to use Ansible. This inventory is typically stored in a file called ansible_hosts.
+
+3. Create Ansible Playbooks:
+
+Playbooks are Ansible's configuration, deployment, and orchestration language. They contain tasks that are performed on one or multiple hosts in the Ansible inventory. Playbooks can contain multiple plays, each of which defines a specific set of tasks to be run against a given set of hosts.
+
+4. Run Ansible Playbooks:
+
+Once you have written your playbooks, you can run them with the ansible-playbook command. This command will execute all the tasks defined in the playbook on the target hosts. 
+
+By following these steps, you should be able to set up Ansible for your projects.
+**********************************
+
+1. Install Terraform:
+Download and install the latest version of Terraform from https://www.terraform.io/downloads.html.
+
+2. Configure AWS Credentials:
+Create an IAM user in the AWS Console. Generate an access key ID and secret access key and configure those keys in your local environment. 
+
+3. Setup Your Working Directory:
+Create a new working directory and add a main.tf file containing the infrastructure you wish to build.
+
+4. Initialize Terraform:
+Run the terraform init command in the directory containing the main.tf file. This will download the necessary plugins from the Terraform registry and initialize the backend.
+
+5. Validate the Template Syntax:
+Run the terraform validate command to validate your template syntax. 
+
+6. Create a Plan of Action:
+Run the terraform plan command to create an execution plan. This command will output a plan which shows which resources will be created, modified, or destroyed.
+
+7. Execute the Plan of Action:
+Run the terraform apply command to deploy your changes. This will tell Terraform to execute the plan created by the previous step.
+
+8. Review the Deployed Resources:
+Run the terraform show command to view the deployed resources and their attributes.
+
+9. Destroy Resources:
+Run the terraform destroy command to delete all deployed resources. 
+This should be done when the project is complete.
+**********************************
+
+Chrome and Firefox are both web browsers, meaning they are software programs designed to allow users to view websites. Chrome is developed by Google, while Firefox is developed by the Mozilla Foundation. They compete for market share, but both offer a similar type of service; allowing users to browse websites.
+**********************************
