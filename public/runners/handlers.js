@@ -69,7 +69,6 @@ async function DELETE_USERDOCS () {
     runLoader(true)
   }
 }
-
 async function delUserHelper (email, userId, token) {
   console.log(token)
   runLoader(false, 'Finalizing...')

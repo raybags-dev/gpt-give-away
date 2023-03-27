@@ -167,13 +167,10 @@
     <script>
         const loginForm = document.getElementById('login___form')
         const submitButton = loginForm.querySelector('.login_btn')
-
         loginForm.addEventListener('submit', async event => {
             event.preventDefault()
         })
-
         const fields = loginForm.querySelectorAll('input[required], select[required], textarea[required]')
-
         fields.forEach(field => {
             field.addEventListener('input', () => {
                 const invalid = !field.checkValidity()
@@ -189,7 +186,6 @@
                 }
             })
         })
-
         document.querySelector('#exampleCheck1').addEventListener('click', () => {
             if (document.querySelector('#exampleCheck1').checked) {
                 window.location.href = '/html/signup.html';

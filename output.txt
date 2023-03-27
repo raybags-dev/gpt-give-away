@@ -299,4 +299,52 @@ Adolf Hitler was a German politician and leader of the Nazi Party. He was chance
 **********************************
 
 It is impossible to accurately predict when the Earth will end. Scientists estimate that in approximately 4.5 billion years, the continued formation of the Moon from Earth's mantle due to tidal forces will cause the Earth to become completely uninhabitable.
+**********************************?
+
+Lent is a Christian season of preparation for Easter, starting on Ash Wednesday and continuing for 40 days (not including Sundays). During this time, many Christians practice prayer, fasting, and self-denial as part of their observance.
+**********************************
+
+Anopheles mosquitos are a type of mosquito that are vectors for malaria. They are recognizable by the white scales on their bodies and wings. These mosquitos have earned the nickname “malaria mosquitoes” due to their role in carrying and transmitting the parasite that causes malaria.
+**********************************
+
+function savePhotosToS3(photoArray) {
+  const AWS = require('aws-sdk');
+  AWS.config.update({
+    accessKeyId: <your_access_key>,
+    secretAccessKey: <your_secret_key>
+  });
+  
+  const s3 = new AWS.S3();
+
+  let savedPhotos = [];
+
+  photoArray.forEach( photo => {
+    let params = {
+      Body: photo.data,
+      Bucket: 'my-bucket',
+      Key: photo.name
+    };
+
+    s3.putObject(params, (err, data) => {
+      if (err) console.log(err);
+      else savedPhotos.push(params.Key);
+    })
+
+  })
+
+  return savedPhotos;
+}
+**********************************
+
+Yes, this site has reviews. You can view reviews by clicking on the “Reviews” tab on the main page. On the left side of the page, you can read user reviews and rate the hotel. Click on the “Write a Review” button to leave your own review.
+**********************************
+
+The exact endpoint for reviews on hotel.elong.com is: https://hotel.elong.com/ajax/comment/list.html
+**********************************
+
+
+curl --location --request GET 'https://hotel.elong.com/ajax/comment/list.html'
+**********************************ana ranaut
+
+Kangana Ranaut is an Indian actress and film producer. She is one of the highest-paid actresses in India and is the recipient of several awards, including three National Film Awards and four Filmfare Awards. She has been acclaimed for her acting skills and is famous for portraying strong female-oriented characters in movies.
 **********************************

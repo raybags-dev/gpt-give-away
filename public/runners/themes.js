@@ -4,7 +4,7 @@ const TOGGLE_THEME = async () => {
     const navBar = document.querySelector('.navbar')
     const toggler = document.querySelector('#theme-toggle')
     const dropdown = document.querySelector('#drop_menu')
-    const messageInput = document.querySelector('#qn-inpuut')
+    // const messageInput = document.querySelector('#qn-inpuut')
     let currentTheme = localStorage.getItem('theme')
 
     if (!currentTheme) currentTheme = 'light'
@@ -13,7 +13,7 @@ const TOGGLE_THEME = async () => {
     navBar?.classList.add(`navbar-${currentTheme}`)
     navBar?.classList.add(`bg-${currentTheme}`)
     dropdown?.classList.add(`dropdown-menu-${currentTheme}`)
-    messageInput.classList.add(`bg-${currentTheme}`)
+    // messageInput?.classList.add(`bg-${currentTheme}`)
 
     // Add card classes
     const cards = document.querySelectorAll('.card')
@@ -34,13 +34,13 @@ const TOGGLE_THEME = async () => {
       toggler ? (toggler.checked = true) : false
     }
 
-    toggler.addEventListener('change', function (e) {
+    toggler?.addEventListener('change', function (e) {
       if (e.target.checked) {
         body.classList.replace('bg-light', 'bg-dark')
         navBar?.classList.replace('navbar-light', 'navbar-dark')
         navBar?.classList.replace('bg-light', 'bg-dark')
-        messageInput.classList.replace('bg-light', 'bg-dark')
-        messageInput.classList.add('text-light')
+        // messageInput?.classList.replace('bg-light', 'bg-dark')
+        // messageInput?.classList.add('text-light')
         dropdown?.classList.replace('dropdown-menu-light', 'dropdown-menu-dark')
         localStorage?.setItem('theme', 'dark')
 
@@ -57,8 +57,8 @@ const TOGGLE_THEME = async () => {
         body.classList.replace('bg-dark', 'bg-light')
         navBar?.classList.replace('navbar-dark', 'navbar-light')
         navBar?.classList.replace('bg-dark', 'bg-light')
-        messageInput.classList.replace('bg-dark', 'bg-light')
-        messageInput.classList.remove('text-light')
+        // messageInput.classList.replace('bg-dark', 'bg-light')
+        // messageInput.classList.remove('text-light')
         dropdown?.classList.replace('dropdown-menu-dark', 'dropdown-menu-light')
         localStorage?.setItem('theme', 'light')
 
@@ -80,8 +80,8 @@ const TOGGLE_THEME = async () => {
         body.classList.replace('bg-light', `bg-${currentTheme}`)
         navBar?.classList.replace('navbar-light', `navbar-${currentTheme}`)
         navBar?.classList.replace('bg-light', `bg-${currentTheme}`)
-        messageInput.classList.replace('bg-light', `bg-${currentTheme}`)
-        messageInput.classList.remove('text-dark')
+        // messageInput.classList.replace('bg-light', `bg-${currentTheme}`)
+        // messageInput.classList.remove('text-dark')
 
         dropdown?.classList.replace(
           'dropdown-menu-light',
@@ -121,13 +121,19 @@ function inputTheme () {
   let initial_theme = localStorage.getItem('input__theme')
   if (!initial_theme) initial_theme = '_light_'
 
-  message_input.classList.add(`input_group${initial_theme}`)
-  toggle_btn.addEventListener('change', function (e) {
+  message_input?.classList.add(`input_group${initial_theme && initial_theme}`)
+  toggle_btn?.addEventListener('change', function (e) {
     if (e.target.checked) {
-      message_input.classList.replace('input_group_light_', 'input_group_dark_')
+      message_input?.classList.replace(
+        'input_group_light_',
+        'input_group_dark_'
+      )
       localStorage.setItem('input__theme', '_dark_')
     } else {
-      message_input.classList.replace('input_group_dark_', 'input_group_light_')
+      message_input?.classList.replace(
+        'input_group_dark_',
+        'input_group_light_'
+      )
       localStorage.setItem('input__theme', '_light_')
     }
   })
@@ -135,7 +141,7 @@ function inputTheme () {
   window.addEventListener('storage', function (e) {
     if (e.key === 'input__theme') {
       initial_theme = e.newValue
-      message_input.classList.replace(
+      message_input?.classList.replace(
         'input_group_light_',
         `input_group-${initial_theme}`
       )

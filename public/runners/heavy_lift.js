@@ -271,6 +271,7 @@ function handleQuestionFormSubmit () {
 }
 
 async function FETCH_DATA () {
+  runLoader(false, 'Loading...')
   try {
     // Check if user is logged in
     if (!sessionStorage.getItem('token')) {
@@ -301,6 +302,7 @@ async function FETCH_DATA () {
       params: { page, perPage }
     })
     if (res.statusText == 'OK') {
+      runLoader(true)
       const { data } = await res.data
       data.forEach(async (obj, index) => {
         const { _id, question, response, updatedAt, createdAt, user } =
@@ -331,6 +333,7 @@ async function FETCH_DATA () {
       error?.response.data == 'Sorry I have nothing for you!' ||
       error?.response.status == 404
     ) {
+      runLoader(true)
       return showNotification(
         'Your in.',
         'You dont seem to have any documents in the database.'
@@ -338,6 +341,8 @@ async function FETCH_DATA () {
     } else {
       console.log(error)
     }
+  } finally {
+    runLoader(true)
   }
 }
 

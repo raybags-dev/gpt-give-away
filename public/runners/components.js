@@ -20,10 +20,16 @@ function RESPONSE_HTML (
   const cardClass =
     mainTheme === 'dark' ? 'card-dark-background' : 'card-light-background'
   newResponse.innerHTML = `
-        <div class="card  shadow rounded ${cardClass}">
-        <a class="btn-close rounded" style="position:fixed;right:1%;top:2%;width:10px;height:10px;"></a>
+        <div class="card shadow rounded ${cardClass}">
+        <div class="card-header container-fluid d-flex align-content-between"
         <p class="card-header text-muted">${email || 'username placeholder'}</p>
-
+        <a class="nav-link dropdown-toggle float-end" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          </a>
+          <ul class="dropdown-menu bg-transparent" style="backdrop-filter:blur(3px);z-index:10; background: rgba(240, 240, 240, 0.5) !important;" aria-labelledby="navbarDropdownMenuLink">
+          <li><a id="delete__document" class="dropdown-item" href="#">Delete document</a></li>
+          <li><a id="expand__document" class="dropdown-item" href="#">Full screen</a></li>
+        </ul>
+        </div>
         <div class="card-body">
             <p class="fst-italic text-muted">Created: ${
               doc_generated || 'id placeholder'
