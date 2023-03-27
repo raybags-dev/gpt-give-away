@@ -348,3 +348,50 @@ curl --location --request GET 'https://hotel.elong.com/ajax/comment/list.html'
 
 Kangana Ranaut is an Indian actress and film producer. She is one of the highest-paid actresses in India and is the recipient of several awards, including three National Film Awards and four Filmfare Awards. She has been acclaimed for her acting skills and is famous for portraying strong female-oriented characters in movies.
 **********************************
+
+FADE IN: 
+
+EXT. SPACE - DAY
+
+The vast expanse of the galaxy slowly drifts by as a small spaceship enters the screen and make its way forward.
+
+INT. SPACESHIP - CONTINUOUS
+
+A lone figure is seated at the controls, a figure of alien origin. The alien is from Mars and their mission is to come to Earth and mate with humans in secret, infiltrating the planet and preparing it for an invasion from their home planet.
+
+EXT. SKY NEAR EARTH - CONTINUOUS
+
+The spaceship continues to the planet, its engine roaring as it cuts through space.
+
+INT. SPACESHIP - LATER
+
+The alien looks out the window, a determined look on their face. 
+
+EXT. FIELD - DAY
+
+The spaceship touches down in a remote field and the figure from the ship steps out.  The air is cool and the alien takes a moment to adjust.
+
+EXT. CITY STREETS - DAY
+
+The alien makes their way into the city, their eyes constantly scanning the area. Everywhere they go, people stir and whisper, sensing something different about them but unsure what it is.
+
+EXT. BAR - NIGHT
+
+The alien finds themselves at a bar. They scan the room, looking for someone who looks likely to become a potential mate.
+
+Suddenly, a woman walks in and immediately catches the attention of the alien. She's attractive, confident and has a playful but mysterious air around her. The alien is drawn to her.
+
+INT. BAR - CONTINUOUS
+
+The alien and the woman sit and talk, the alien revealing their alien nature to her without scaring her away. Shortly afterwards, the two leave, heading towards the woman’s place. 
+
+EXT. APARTMENT - NIGHT 
+
+The two make their way to the woman’s apartment, where the two share a passionate night together. In the heat of the moment, the alien fails to mention the true purpose of their mission. 
+
+EXT. FIELD - DAY
+
+The next morning, the alien returns to the field. As they leave, they realize that they have accomplished their mission - they have infiltrated the planet and planted the seed for a full-on invasion.
+
+FADE OUT.
+**********************************

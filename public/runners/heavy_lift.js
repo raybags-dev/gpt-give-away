@@ -192,11 +192,9 @@ function handleQuestionFormSubmit () {
     const data = input.value.trim()
 
     if (!data) {
-      showNotification(
-        'Ohhh did you forget ?',
-        'You must ask a valid question '
-      )
+      showNotification('Invalid input!', 'You must ask a valid question ')
       input.focus()
+      setTimeout(() => runLoader(true), 2000)
       return
     }
 
