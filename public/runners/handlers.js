@@ -15,7 +15,7 @@ function generateDeleteModel () {
   let modalHTML = `
           <div class="modal fade delete_modell" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered ">
-            <div id="dele-mole" class="modal-content bg-dark">
+            <div id="dele-mole" class="modal-content" style="backdrop-filter:blur(5px); background: rgba(240, 240, 240, 0.2) !important;">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel">Are you sure ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -45,7 +45,6 @@ function generateDeleteModel () {
       }
     })
 }
-
 async function DELETE_USERDOCS () {
   try {
     runLoader(false, 'Deleting...')
@@ -70,7 +69,6 @@ async function DELETE_USERDOCS () {
   }
 }
 async function delUserHelper (email, userId, token) {
-  console.log(token)
   runLoader(false, 'Finalizing...')
   let url2 = '/purge-account'
   try {
@@ -91,5 +89,4 @@ async function delUserHelper (email, userId, token) {
     console.log(e)
   }
 }
-
 export { formatDate, generateDeleteModel }

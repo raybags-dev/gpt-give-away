@@ -60,5 +60,4 @@ function RESPONSE_HTML (
         </div>`
   resContainer.prepend(newResponse)
 }
-
 export { RESPONSE_HTML }
