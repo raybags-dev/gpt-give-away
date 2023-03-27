@@ -58,7 +58,7 @@ body {
     display: block;
     width: 50px;
     height: 25px;
-    background-color: #343333;
+    background-color: #6d6c6c;
     border-radius: 25px;
     position: relative;
     cursor: pointer !important;
@@ -87,12 +87,12 @@ body {
 }
 
 .theme-toggle__checkbox:checked+.theme-toggle__label {
-    background-color: #727273;
+    background-color: #585858;
 }
 
 .theme-toggle__checkbox:checked+.theme-toggle__label:before {
     transform: translateX(25px);
-    background-color: #e8e7e7;
+    background-color: #2b2f32;
 }
 
 .bg-dark {

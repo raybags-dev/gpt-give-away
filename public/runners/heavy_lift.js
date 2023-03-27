@@ -19,33 +19,29 @@ api.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-function showNotification (heading, message) {
+function showNotification (heading, message = '...') {
   // Check if a notification already exists and remove it
   const existingNotification = document.getElementById('notifications')
   if (existingNotification) {
     existingNotification.remove()
   }
-
   // Create the new notification element
   const notification = document.createElement('div')
   notification.id = 'notifications'
   notification.className = 'alert alert-transparent rounded showNotification'
   notification.setAttribute('role', 'alert')
-
+  notification.style.cssText =
+    'min-width:fit-content;font-size:0.9rem;font-style:italic;'
   // Create the heading element and add it to the notification
   const headingElement = document.createElement('p')
-  headingElement.className = 'lead'
   headingElement.innerText = heading || 'Nothing to see...'
   notification.appendChild(headingElement)
-
   // Create the message element and add it to the notification
   const messageElement = document.createElement('p')
   messageElement.innerText = message || 'Nothing to see...'
   notification.appendChild(messageElement)
-
   // Append the notification to the body
   document.body.appendChild(notification)
-
   // Wait 5 seconds and remove the showNotification class
   setTimeout(() => {
     notification.classList.remove('showNotification')
