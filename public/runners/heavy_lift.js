@@ -228,7 +228,6 @@ function handleQuestionFormSubmit () {
           latestQuestion.user,
           true // set as latest question with expandable summary
         )
-
         question_formm.reset()
         runLoader(true)
         return
@@ -339,6 +338,158 @@ async function FETCH_DATA () {
     runLoader(true)
   }
 }
+// ============================
+// ============================
+//SEARCH IMPLIMENTATION
+// ============================
+// ============================
+// async function searchDatabase (e) {
+//   if (e) {
+//     e.preventDefault()
+//   }
+//   const searchingInput = document.querySelector('#search____input')
+//   const container_res = document.querySelector('#RES_container')
+//   let inputValue = searchingInput?.value.trim().toLowerCase()
+
+//   if (!inputValue) {
+//     container_res.innerHTML = ''
+//     return showNotification('Error', 'Input required!')
+//   }
+//   if (!sessionStorage.getItem('token')) {
+//     container_res.innerHTML = ''
+//     return showNotification('Error', 'Authentication required')
+//   }
+//   if (window.location.pathname !== '/index.html') return
+
+//   try {
+//     runLoader(false, 'Loading...')
+//     container_res.innerHTML = ''
+
+//     const { email, token } = JSON.parse(sessionStorage.getItem('token'))
+//     let url = '/data-all'
+//     const headers = {
+//       Authorization: `Bearer ${token}`,
+//       'Content-Type': 'application/json'
+//     }
+//     const body = { email }
+//     const res = await api.post(url, body, { headers })
+
+//     if (res.statusText === 'OK') {
+//       runLoader(true)
+//       const { data } = await res.data
+//       data.forEach((obj, index) => {
+//         const { _id, question, response, updatedAt, createdAt, user } = obj
+//         const questionLower = question.toLowerCase()
+//         const responseLower = response.toLowerCase()
+
+//         if (
+//           questionLower.includes(inputValue) ||
+//           responseLower.includes(inputValue)
+//         ) {
+//           RESPONSE_HTML(
+//             email,
+//             formatDate(createdAt),
+//             question,
+//             response,
+//             response,
+//             updatedAt,
+//             user
+//           )
+//           const responses = document.querySelectorAll('.card')
+//           const lastIndex = responses.length - 1
+
+//           if (index === lastIndex) {
+//             responses[lastIndex].classList.add('bring_in')
+//           }
+//         }
+//       })
+//     }
+//   } catch (error) {
+//     console.error(error)
+//     showNotification('Error', 'An internal error occurred')
+//   } finally {
+//     runLoader(true)
+//   }
+// }
+async function searchDatabase (e) {
+  if (e) {
+    e.preventDefault()
+  }
+  const searchingInput = document.querySelector('#search____input')
+  const container_res = document.querySelector('#RES_container')
+  let inputValue = searchingInput?.value.trim().toLowerCase()
+
+  if (!inputValue) {
+    // if input is empty, show all results that were initially available
+    const cards = document.querySelectorAll('.card')
+    cards.forEach(card => card.classList.remove('hide'))
+    return
+  }
+  if (!sessionStorage.getItem('token')) {
+    return showNotification('Error', 'Authentication required')
+  }
+  if (window.location.pathname !== '/index.html') return
+
+  try {
+    runLoader(false, 'Loading...')
+    const { email, token } = JSON.parse(sessionStorage.getItem('token'))
+    let url = '/data-all'
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+    const body = { email }
+    const res = await api.post(url, body, { headers })
+
+    if (res.statusText === 'OK') {
+      runLoader(true)
+      const { data } = await res.data
+      let hasResults = false
+      // clear the contents of the container_res before appending search results
+      container_res.innerHTML = ''
+      data.forEach((obj, index) => {
+        const { _id, question, response, updatedAt, createdAt, user } = obj
+        const questionLower = question.toLowerCase()
+        const responseLower = response.toLowerCase()
+
+        if (
+          questionLower.includes(inputValue) ||
+          responseLower.includes(inputValue)
+        ) {
+          RESPONSE_HTML(
+            email,
+            formatDate(createdAt),
+            question,
+            response,
+            response,
+            updatedAt,
+            user
+          )
+          hasResults = true
+          const responses = document.querySelectorAll('.card')
+          const lastIndex = responses.length - 1
+
+          if (index === lastIndex) {
+            responses[lastIndex].classList.add('bring_in')
+          }
+        } else {
+          const card = document.querySelector(`[data-id="${_id}"]`)
+          if (card) {
+            card.classList.add('hide')
+          }
+        }
+      })
+      if (!hasResults) {
+        showNotification('No results', `No results found for "${inputValue}"`)
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    showNotification('Error', 'An internal error occurred')
+  } finally {
+    runLoader(true)
+  }
+}
 
 export {
   api,
@@ -348,5 +499,6 @@ export {
   LOGIN,
   INITIALIZER,
   handleQuestionFormSubmit,
-  FETCH_DATA
+  FETCH_DATA,
+  searchDatabase
 }

@@ -7,7 +7,8 @@ import {
   INITIALIZER,
   handleQuestionFormSubmit,
   FETCH_DATA,
-  runLoader
+  runLoader,
+  searchDatabase
 } from './heavy_lift.js'
 const signupForm = document.querySelector('#signup-form')
 const loginForm = document.querySelector('#login___form')
@@ -57,3 +58,15 @@ FETCH_DATA()
 deleteAccountBTN?.addEventListener('click', () => {
   generateDeleteModel()
 })
+// search
+const searchingInput = document.querySelector('#search____input')
+let typingTimer = null
+const doneTypingInterval = 300 // 300 millisecond delay
+
+function inputEventHandler () {
+  clearTimeout(typingTimer)
+  typingTimer = setTimeout(searchDatabase, doneTypingInterval)
+}
+
+// Add an event listener to the input
+searchingInput.addEventListener('input', inputEventHandler)

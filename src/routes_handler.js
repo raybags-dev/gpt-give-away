@@ -3,7 +3,7 @@ const {
   CreateUser,
   Login,
   AskGPT,
-  GetPaginatedResults,
+  GetAllResults,
   GetAll,
   DeleteOne,
   FindOneItem,
@@ -18,7 +18,7 @@ module.exports = async app => {
   CreateUser(app)
   Login(app)
   AskGPT(app)
-  GetPaginatedResults(app)
+  GetAllResults(app)
   GetAll(app)
   DeleteOne(app)
   FindOneItem(app)

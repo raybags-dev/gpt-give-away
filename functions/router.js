@@ -126,51 +126,30 @@ function AskGPT (app) {
     })
   )
 }
-function GetPaginatedResults (app) {
+function GetAllResults (app) {
   app.post(
-    '/raybags/v1/wizard/data',
+    '/raybags/v1/wizard/data-all',
     authMiddleware,
     asyncMiddleware(async (req, res) => {
       try {
-        if (req.query.page <= '0') throw new Error(`Page can't be 0`)
-        const page = req.query.page
-        const limit = 10
-        const skip = (page - 1) * limit
         const userId = req.user.userId // Updated this line to use userId instead of _id
 
-        let response = await GPT_RESPONSE.find({ user: userId })
-          .sort({ createdAt: -1 })
-          .skip(skip)
-          .limit(limit)
-        const totalPages = Math.ceil(
-          (await GPT_RESPONSE.countDocuments({ user: userId })) / limit
-        )
+        let response = await GPT_RESPONSE.find({ user: userId }).sort({
+          createdAt: -1
+        })
         if (!response.length) return res.status(404).json('No documents found!')
-        res.status(200).json({ data: response, totalPages, currentPage: page })
+        res.status(200).json({ data: response })
         return response
       } catch (error) {
-        if (error.message === `Page can't be 0`) {
-          return res
-            .status(400)
-            .json({ status: 'Error', message: error.message })
-        } else if (error.name === 'CastError' && error.path === 'page') {
-          return res
-            .status(400)
-            .json({ status: 'Error', message: 'Page should be a number' })
-        } else if (error instanceof mongoose.Error.ValidationError) {
-          return res
-            .status(400)
-            .json({ status: 'Error', message: error.message })
-        } else {
-          console.error(error)
-          return res
-            .status(500)
-            .json({ status: 'Error', message: 'An internal error occurred' })
-        }
+        console.error(error)
+        return res
+          .status(500)
+          .json({ status: 'Error', message: 'An internal error occurred' })
       }
     })
   )
 }
+
 function FindOneItem (app) {
   app.post(
     '/raybags/v1/wizard/data/document/:id',
@@ -400,7 +379,6 @@ function FindUser (app) {
     })
   )
 }
-
 function NotSupported (req, res, next) {
   res.status(502).sendFile(fallbackPagePath)
 }
@@ -408,7 +386,7 @@ module.exports = {
   CreateUser,
   Login,
   AskGPT,
-  GetPaginatedResults,
+  GetAllResults,
   GetAll,
   DeleteOne,
   FindOneItem,
