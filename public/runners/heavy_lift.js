@@ -19,7 +19,7 @@ api.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-function showNotification (heading = '', message = '...') {
+function showNotification (heading, message = '...') {
   // Check if a notification already exists and remove it
   const existingNotification = document.getElementById('notifications')
   if (existingNotification) {
@@ -110,30 +110,22 @@ function SIGNUP (signupForm) {
         }, 5000)
         return
       }
-      showNotification('Oops', 'Something went wrong, try again later.')
+      showNotification('Error', 'Something went wrong, try again later.')
       setTimeout(() => runLoader(true), 3000)
     } catch (error) {
-      let err_msg = error.response.data.error
-
-      // Check if error message contains duplication error
-      if (
-        err_msg?.includes('E11000 duplicate key error') &&
-        err_msg?.includes('index')
-      ) {
-        // Check if error message contains email or username
-        if (err_msg?.includes('email') || err_msg?.includes('name')) {
-          showNotification(
-            'Account exists',
-            'This email or username is already associated with another account.'
-          )
-          setTimeout(() => {
-            runLoader(true)
-            window.location.href = '/html/login.html'
-          }, 3000)
-          return
-        }
+      if (error.response.status == 409) {
+        showNotification(
+          'Account exists!',
+          `It'd seem you already have an account. Reedirected to login page...`
+        )
+        sessionStorage.setItem('redirected', true)
+        setTimeout(() => {
+          runLoader(true)
+          window.location.href = '/html/login.html'
+        }, 3000)
+        return
       }
-      showNotification('Failed to create user.')
+      showNotification('Error', 'Failed to create user.')
       setTimeout(() => runLoader(true), 3000)
     }
   })
@@ -188,6 +180,8 @@ function INITIALIZER () {
     }
   })
 }
+// ========== QUETION HANDLER ==================
+
 function handleQuestionFormSubmit () {
   const question_formm = document.getElementById('question____form')
   const input = document.querySelector('#qn-inpuut')
@@ -335,7 +329,7 @@ async function FETCH_DATA () {
       runLoader(true)
       return showNotification(
         'Your in.',
-        'You dont seem to have any documents saved.'
+        'You dont seem to have any documents in the database.'
       )
     } else {
       console.log(error)
@@ -349,6 +343,74 @@ async function FETCH_DATA () {
 //SEARCH IMPLIMENTATION
 // ============================
 // ============================
+// async function searchDatabase (e) {
+//   if (e) {
+//     e.preventDefault()
+//   }
+//   const searchingInput = document.querySelector('#search____input')
+//   const container_res = document.querySelector('#RES_container')
+//   let inputValue = searchingInput?.value.trim().toLowerCase()
+
+//   if (!inputValue) {
+//     container_res.innerHTML = ''
+//     return showNotification('Error', 'Input required!')
+//   }
+//   if (!sessionStorage.getItem('token')) {
+//     container_res.innerHTML = ''
+//     return showNotification('Error', 'Authentication required')
+//   }
+//   if (window.location.pathname !== '/index.html') return
+
+//   try {
+//     runLoader(false, 'Loading...')
+//     container_res.innerHTML = ''
+
+//     const { email, token } = JSON.parse(sessionStorage.getItem('token'))
+//     let url = '/data-all'
+//     const headers = {
+//       Authorization: `Bearer ${token}`,
+//       'Content-Type': 'application/json'
+//     }
+//     const body = { email }
+//     const res = await api.post(url, body, { headers })
+
+//     if (res.statusText === 'OK') {
+//       runLoader(true)
+//       const { data } = await res.data
+//       data.forEach((obj, index) => {
+//         const { _id, question, response, updatedAt, createdAt, user } = obj
+//         const questionLower = question.toLowerCase()
+//         const responseLower = response.toLowerCase()
+
+//         if (
+//           questionLower.includes(inputValue) ||
+//           responseLower.includes(inputValue)
+//         ) {
+//           RESPONSE_HTML(
+//             email,
+//             formatDate(createdAt),
+//             question,
+//             response,
+//             response,
+//             updatedAt,
+//             user
+//           )
+//           const responses = document.querySelectorAll('.card')
+//           const lastIndex = responses.length - 1
+
+//           if (index === lastIndex) {
+//             responses[lastIndex].classList.add('bring_in')
+//           }
+//         }
+//       })
+//     }
+//   } catch (error) {
+//     console.error(error)
+//     showNotification('Error', 'An internal error occurred')
+//   } finally {
+//     runLoader(true)
+//   }
+// }
 async function searchDatabase (e) {
   if (e) {
     e.preventDefault()
@@ -364,12 +426,7 @@ async function searchDatabase (e) {
     return
   }
   if (!sessionStorage.getItem('token')) {
-    showNotification('Error', 'Authentication required')
-    setTimeout(() => {
-      runLoader(true)
-      window.location.href = '../html/login.html'
-    }, 3000)
-    return
+    return showNotification('Error', 'Authentication required')
   }
   if (window.location.pathname !== '/index.html') return
 
