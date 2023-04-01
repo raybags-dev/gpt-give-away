@@ -69,4 +69,4 @@ function inputEventHandler () {
 }
 
 // Add an event listener to the input
-searchingInput.addEventListener('input', inputEventHandler)
+searchingInput?.addEventListener('input', inputEventHandler)
