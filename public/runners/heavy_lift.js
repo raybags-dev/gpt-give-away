@@ -19,7 +19,7 @@ api.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-function showNotification (heading = '', message = '...') {
+function showNotification (message = '...') {
   // Check if a notification already exists and remove it
   const existingNotification = document.getElementById('notifications')
   if (existingNotification) {
@@ -28,14 +28,11 @@ function showNotification (heading = '', message = '...') {
   // Create the new notification element
   const notification = document.createElement('div')
   notification.id = 'notifications'
-  notification.className = 'alert alert-transparent rounded showNotification'
+  notification.className =
+    'alert alert-transparent p-1 rounded showNotification'
   notification.setAttribute('role', 'alert')
   notification.style.cssText =
-    'min-width:fit-content;font-size:0.9rem;font-style:italic;'
-  // Create the heading element and add it to the notification
-  const headingElement = document.createElement('p')
-  headingElement.innerText = heading || 'Nothing to see...'
-  notification.appendChild(headingElement)
+    'min-width:fit-content;font-size:0.8rem;font-style:italic;'
   // Create the message element and add it to the notification
   const messageElement = document.createElement('p')
   messageElement.innerText = message || 'Nothing to see...'
@@ -100,17 +97,14 @@ function SIGNUP (signupForm) {
         const storedUser = { name, email, isUser: true }
         localStorage.setItem('user', JSON.stringify(storedUser))
 
-        showNotification(
-          'Success',
-          `Hi ${storedUser.name}. Your account has been created`
-        )
+        showNotification(`Hi ${storedUser.name}. Your account has been created`)
         setTimeout(() => {
           runLoader(true)
           window.location.href = '/html/login.html'
         }, 5000)
         return
       }
-      showNotification('Oops', 'Something went wrong, try again later.')
+      showNotification('Something went wrong, try again later.')
       setTimeout(() => runLoader(true), 3000)
     } catch (error) {
       let err_msg = error.response.data.error
@@ -123,7 +117,6 @@ function SIGNUP (signupForm) {
         // Check if error message contains email or username
         if (err_msg?.includes('email') || err_msg?.includes('name')) {
           showNotification(
-            'Account exists',
             'This email or username is already associated with another account.'
           )
           setTimeout(() => {
@@ -156,7 +149,7 @@ function LOGIN (loginForm) {
         sessionStorage.setItem('token', JSON.stringify({ token, email }))
         // Redirect to main page
         sessionStorage.setItem('redirected', true)
-        showNotification('Success', `You have successfully logged in.`)
+        showNotification(`You have successfully logged in.`)
         setTimeout(() => {
           runLoader(true)
           window.location.href = '../index.html'
@@ -166,7 +159,7 @@ function LOGIN (loginForm) {
       runLoader(false, 'Failed!')
       const errorMessage =
         error.response.data.error || 'An error occurred during login'
-      showNotification('Credentials issue.', `${errorMessage}.`)
+      showNotification(`Credentials: ${errorMessage}.`)
       setTimeout(() => runLoader(true), 3000)
     }
   })
@@ -198,7 +191,7 @@ function handleQuestionFormSubmit () {
     const data = input.value.trim()
 
     if (!data) {
-      showNotification('Invalid input!', 'You must ask a valid question ')
+      showNotification('Invalid input, you must ask a valid question ')
       input.focus()
       setTimeout(() => runLoader(true), 2000)
       return
@@ -239,13 +232,13 @@ function handleQuestionFormSubmit () {
       }
     } catch (error) {
       if (error.response.status === 429) {
-        showNotification('Sever is down', 'Try again later.')
+        showNotification('Server is down, try again later.')
         button.disabled = false
         button.textContent = 'Send Message'
         input.focus()
         runLoader(true)
       }
-      showNotification('Failed.', 'Try again lattter')
+      showNotification('Failed, try again lattter')
       runLoader(true)
     } finally {
       button.disabled = false
@@ -324,24 +317,18 @@ async function FETCH_DATA () {
       })
       return
     }
-    showNotification(
-      'Failed',
-      'Something went wrong. Try to ask your question again'
-    )
+    showNotification('Something went wrong. Try to ask your question again')
   } catch (error) {
     if (
       error?.response.data == 'Sorry I have nothing for you!' ||
       error?.response.status == 404
     ) {
       runLoader(true)
-      return showNotification(
-        'Your in.',
-        'You dont seem to have any documents saved.'
-      )
+      return showNotification('You dont seem to have any documents saved.')
     }
 
     if (error?.response.status == 401) {
-      showNotification('Your session has expired!', 'Please login.')
+      showNotification('Session expired, please login.')
       setTimeout(() => {
         runLoader(true)
         window.history.replaceState(null, null, '/html/login.html')
@@ -349,7 +336,7 @@ async function FETCH_DATA () {
       }, 3000)
     }
     if (error?.response.status == 404) {
-      showNotification('Account not found!', 'Please sign up.')
+      showNotification('Account not found. Please sign up.')
       setTimeout(() => {
         runLoader(true)
         window.history.replaceState(null, null, '/html/signup.html')
@@ -361,87 +348,7 @@ async function FETCH_DATA () {
     runLoader(true)
   }
 }
-// async function searchDatabase (e) {
-//   if (e) {
-//     e.preventDefault()
-//   }
-//   const searchingInput = document.querySelector('#search____input')
-//   const container_res = document.querySelector('#RES_container')
-//   let inputValue = searchingInput?.value.trim().toLowerCase()
 
-//   if (!inputValue) {
-//     // if input is empty, show all results that were initially available
-//     const cards = document.querySelectorAll('.card')
-//     cards.forEach(card => card.classList.remove('hide'))
-//     return
-//   }
-//   if (!sessionStorage.getItem('token')) {
-//     showNotification('Error', 'Authentication required')
-//     setTimeout(() => {
-//       runLoader(true)
-//       window.location.href = '../html/login.html'
-//     }, 3000)
-//     return
-//   }
-//   if (window.location.pathname !== '/index.html') return
-
-//   try {
-//     runLoader(false, 'Loading...')
-//     const { email, token } = JSON.parse(sessionStorage.getItem('token'))
-//     let url = '/data/user-docs'
-//     const headers = {
-//       Authorization: `Bearer ${token}`,
-//       'Content-Type': 'application/json'
-//     }
-//     const body = { email }
-//     const res = await api.post(url, body, { headers })
-
-//     if (res.statusText === 'OK') {
-//       runLoader(true)
-//       const { data } = await res
-//       let hasResults = false
-//       // clear the contents of the container_res before appending search results
-//       container_res.innerHTML = ''
-//       data.forEach((obj, index) => {
-//         const { _id, question, response, updatedAt, createdAt, user } = obj
-//         const toLowerQn = question.toLowerCase()
-//         const toLowerRes = response.toLowerCase()
-
-//         if (toLowerQn.includes(inputValue) || toLowerRes.includes(inputValue)) {
-//           RESPONSE_HTML(
-//             formatEmail(email),
-//             formatDate(createdAt),
-//             question,
-//             response,
-//             response,
-//             updatedAt,
-//             user
-//           )
-//           hasResults = true
-//           const responses = document.querySelectorAll('.card')
-//           const lastIndex = responses.length - 1
-
-//           if (index === lastIndex) {
-//             responses[lastIndex].classList.add('bring_in')
-//           }
-//         } else {
-//           const card = document.querySelector(`[data-id="${_id}"]`)
-//           if (card) {
-//             card.classList.add('hide')
-//           }
-//         }
-//       })
-//       if (!hasResults) {
-//         showNotification('No results', `No results found for "${inputValue}"`)
-//       }
-//     }
-//   } catch (error) {
-//     console.error(error)
-//     showNotification('Error', 'An internal error occurred')
-//   } finally {
-//     runLoader(true)
-//   }
-// }
 async function searchDatabase (e) {
   if (e) {
     e.preventDefault()
@@ -451,7 +358,7 @@ async function searchDatabase (e) {
   let inputValue = searchingInput?.value.trim().toLowerCase()
 
   if (!sessionStorage.getItem('token')) {
-    showNotification('Error', 'Authentication required')
+    showNotification('Authentication required')
     setTimeout(() => {
       runLoader(true)
       window.location.href = '../html/login.html'
@@ -511,12 +418,12 @@ async function searchDatabase (e) {
         }
       })
       if (!hasResults) {
-        showNotification('No results', `No results found for "${inputValue}"`)
+        showNotification(`No results found for "${inputValue}"`)
       }
     }
   } catch (error) {
     console.error(error)
-    showNotification('Error', 'An internal error occurred')
+    showNotification('An internal error occurred')
   } finally {
     runLoader(true)
   }
