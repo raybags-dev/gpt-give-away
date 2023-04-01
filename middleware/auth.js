@@ -119,7 +119,6 @@ module.exports = {
       req.user = decodedToken
       req.token = token // Attach token to request object for use in subsequent middleware or routes
 
-      // Check if the email address in the token matches the email address of the user making the request
       const userEmail = req.body.email
       if (!userEmail) {
         return res.status(401).json({ error: 'Missing email in request body' })

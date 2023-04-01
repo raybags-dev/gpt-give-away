@@ -1,5 +1,5 @@
 import { RESPONSE_HTML } from './components.js'
-import { formatDate } from './handlers.js'
+import { formatDate, formatEmail } from './handlers.js'
 
 const api = axios.create({
   baseURL: '/raybags/v1/wizard',
@@ -179,11 +179,11 @@ function INITIALIZER () {
 
     if (!redirected && !user && !token) {
       sessionStorage.setItem('redirected', true)
-      window.history.pushState(null, null, '/html/signup.html')
+      window.history.replaceState(null, null, '/html/signup.html')
       window.location.href = '/html/signup.html'
     } else if (!redirected && user) {
       sessionStorage.setItem('redirected', true)
-      window.history.pushState(null, null, '/html/login.html')
+      window.history.replaceState(null, null, '/html/login.html')
       window.location.href = '/html/login.html'
     }
   })
@@ -217,34 +217,35 @@ function handleQuestionFormSubmit () {
       }
       const res = await api.post(url, { data, email }, { headers })
 
-      if (res.status == 200 && res.statusText == 'OK') {
+      if (res.statusText == 'OK') {
         const page = 1
         const perPage = 10
-        url = '/data'
+        url = '/data/documents-all'
         const query = { page, perPage, email }
-        const response = await api.post(url, query, { headers })
-        const latestQuestion = response.data.data[0]
+        const res = await api.post(url, query, { headers })
+        const latestQuestion = res.data.data[0]
+        const { createdAt, question, response, _id, updatedAt } = latestQuestion
         RESPONSE_HTML(
-          email,
-          formatDate(latestQuestion.createdAt),
-          latestQuestion.question,
-          latestQuestion.response,
-          latestQuestion.response,
-          latestQuestion.updatedAt,
-          latestQuestion.user,
-          true // set as latest question with expandable summary
+          formatEmail(email),
+          formatDate(createdAt),
+          question,
+          response,
+          response,
+          updatedAt,
+          _id
         )
         question_formm.reset()
         runLoader(true)
-        return
       }
-      showNotification(
-        'Hi there.',
-        'Its me your AI assistant. I feel a little sleepy at this time. But lets try again. Hit me. '
-      )
     } catch (error) {
-      console.log(error)
-      showNotification('Oops', 'Something went wrong. Try again lattter')
+      if (error.response.status === 429) {
+        showNotification('Sever is down', 'Try again later.')
+        button.disabled = false
+        button.textContent = 'Send Message'
+        input.focus()
+        runLoader(true)
+      }
+      showNotification('Failed.', 'Try again lattter')
       runLoader(true)
     } finally {
       button.disabled = false
@@ -307,7 +308,7 @@ async function FETCH_DATA () {
         const { _id, question, response, updatedAt, createdAt, user } =
           await obj
         RESPONSE_HTML(
-          email,
+          formatEmail(email),
           formatDate(createdAt),
           question,
           response,
@@ -337,18 +338,110 @@ async function FETCH_DATA () {
         'Your in.',
         'You dont seem to have any documents saved.'
       )
-    } else {
-      console.log(error)
     }
+
+    if (error?.response.status == 401) {
+      showNotification('Your session has expired!', 'Please login.')
+      setTimeout(() => {
+        runLoader(true)
+        window.history.replaceState(null, null, '/html/login.html')
+        window.location.href = '../html/login.html'
+      }, 3000)
+    }
+    if (error?.response.status == 404) {
+      showNotification('Account not found!', 'Please sign up.')
+      setTimeout(() => {
+        runLoader(true)
+        window.history.replaceState(null, null, '/html/signup.html')
+        window.location.href = '../html/signup.html'
+      }, 3000)
+    }
+    console.log(e)
   } finally {
     runLoader(true)
   }
 }
-// ============================
-// ============================
-//SEARCH IMPLIMENTATION
-// ============================
-// ============================
+// async function searchDatabase (e) {
+//   if (e) {
+//     e.preventDefault()
+//   }
+//   const searchingInput = document.querySelector('#search____input')
+//   const container_res = document.querySelector('#RES_container')
+//   let inputValue = searchingInput?.value.trim().toLowerCase()
+
+//   if (!inputValue) {
+//     // if input is empty, show all results that were initially available
+//     const cards = document.querySelectorAll('.card')
+//     cards.forEach(card => card.classList.remove('hide'))
+//     return
+//   }
+//   if (!sessionStorage.getItem('token')) {
+//     showNotification('Error', 'Authentication required')
+//     setTimeout(() => {
+//       runLoader(true)
+//       window.location.href = '../html/login.html'
+//     }, 3000)
+//     return
+//   }
+//   if (window.location.pathname !== '/index.html') return
+
+//   try {
+//     runLoader(false, 'Loading...')
+//     const { email, token } = JSON.parse(sessionStorage.getItem('token'))
+//     let url = '/data/user-docs'
+//     const headers = {
+//       Authorization: `Bearer ${token}`,
+//       'Content-Type': 'application/json'
+//     }
+//     const body = { email }
+//     const res = await api.post(url, body, { headers })
+
+//     if (res.statusText === 'OK') {
+//       runLoader(true)
+//       const { data } = await res
+//       let hasResults = false
+//       // clear the contents of the container_res before appending search results
+//       container_res.innerHTML = ''
+//       data.forEach((obj, index) => {
+//         const { _id, question, response, updatedAt, createdAt, user } = obj
+//         const toLowerQn = question.toLowerCase()
+//         const toLowerRes = response.toLowerCase()
+
+//         if (toLowerQn.includes(inputValue) || toLowerRes.includes(inputValue)) {
+//           RESPONSE_HTML(
+//             formatEmail(email),
+//             formatDate(createdAt),
+//             question,
+//             response,
+//             response,
+//             updatedAt,
+//             user
+//           )
+//           hasResults = true
+//           const responses = document.querySelectorAll('.card')
+//           const lastIndex = responses.length - 1
+
+//           if (index === lastIndex) {
+//             responses[lastIndex].classList.add('bring_in')
+//           }
+//         } else {
+//           const card = document.querySelector(`[data-id="${_id}"]`)
+//           if (card) {
+//             card.classList.add('hide')
+//           }
+//         }
+//       })
+//       if (!hasResults) {
+//         showNotification('No results', `No results found for "${inputValue}"`)
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error)
+//     showNotification('Error', 'An internal error occurred')
+//   } finally {
+//     runLoader(true)
+//   }
+// }
 async function searchDatabase (e) {
   if (e) {
     e.preventDefault()
@@ -357,12 +450,6 @@ async function searchDatabase (e) {
   const container_res = document.querySelector('#RES_container')
   let inputValue = searchingInput?.value.trim().toLowerCase()
 
-  if (!inputValue) {
-    // if input is empty, show all results that were initially available
-    const cards = document.querySelectorAll('.card')
-    cards.forEach(card => card.classList.remove('hide'))
-    return
-  }
   if (!sessionStorage.getItem('token')) {
     showNotification('Error', 'Authentication required')
     setTimeout(() => {
@@ -376,7 +463,7 @@ async function searchDatabase (e) {
   try {
     runLoader(false, 'Loading...')
     const { email, token } = JSON.parse(sessionStorage.getItem('token'))
-    let url = '/data-all'
+    let url = '/data/user-docs'
     const headers = {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -386,21 +473,22 @@ async function searchDatabase (e) {
 
     if (res.statusText === 'OK') {
       runLoader(true)
-      const { data } = await res.data
+      const { data } = await res
       let hasResults = false
       // clear the contents of the container_res before appending search results
       container_res.innerHTML = ''
       data.forEach((obj, index) => {
         const { _id, question, response, updatedAt, createdAt, user } = obj
-        const questionLower = question.toLowerCase()
-        const responseLower = response.toLowerCase()
+        const toLowerQn = question.toLowerCase()
+        const toLowerRes = response.toLowerCase()
 
         if (
-          questionLower.includes(inputValue) ||
-          responseLower.includes(inputValue)
+          inputValue === '' ||
+          toLowerQn.includes(inputValue) ||
+          toLowerRes.includes(inputValue)
         ) {
           RESPONSE_HTML(
-            email,
+            formatEmail(email),
             formatDate(createdAt),
             question,
             response,

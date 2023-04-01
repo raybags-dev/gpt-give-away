@@ -2,7 +2,7 @@ const { Configuration, OpenAIApi } = require('openai')
 const { WRITTER } = require('../Helpers/helper')
 
 require('dotenv').config()
-const { API_KEY_2 } = process.env
+const { API_KEY } = process.env
 
 module.exports = {
   GPT_5: async arg => {
@@ -11,7 +11,7 @@ module.exports = {
       if (!arg) return console.log('Iam ready. Ask away....')
       console.log('processing......')
       const configuration = new Configuration({
-        apiKey: API_KEY_2
+        apiKey: API_KEY
       })
       const openai = new OpenAIApi(configuration)
 
@@ -28,11 +28,11 @@ module.exports = {
       const response = await openai.createCompletion(OPTIONS)
       const text = response.data.choices[0].text
       return !text || text.includes('500 Internal Server Error')
-        ? `Ohh sorry, I'm a little sleepy, Couldn't find what you were looking for. I apologise.`
+        ? `Engine is down`
         : (WRITTER(text), text)
     } catch (e) {
       console.log(`Error: ${e.message}`)
-      return `Ohh sorry, I'm a little sleepy, Couldn't find what you were looking for. I apologise.`
+      return `Engine is down`
     }
   }
 }

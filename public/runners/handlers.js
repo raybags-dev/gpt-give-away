@@ -9,6 +9,16 @@ function formatDate (timestamp) {
   return `${year}-${month}-${day},${hours}:${minutes}`
 }
 
+function formatEmail (email) {
+  const atIndex = email.indexOf('@')
+  if (atIndex !== -1) {
+    const username = email.slice(0, atIndex)
+    const domain = email.slice(atIndex + 1)
+    return `@${username}`
+  }
+  return ''
+}
+
 // Delete model
 function generateDeleteModel () {
   let mainContainer = document.querySelector('#main__wrapper')
@@ -89,4 +99,4 @@ async function delUserHelper (email, userId, token) {
     console.log(e)
   }
 }
-export { formatDate, generateDeleteModel }
+export { formatDate, generateDeleteModel, formatEmail }

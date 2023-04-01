@@ -35,13 +35,13 @@ const LOGOUT = async e => {
     // Redirect to login page if there is no token
     const token = JSON.parse(sessionStorage.getItem('token'))
     if (!token) {
-      window.history.pushState(null, null, '../html/login.html')
+      window.history.replaceState(null, null, '../html/login.html')
       window.location.href = '../html/login.html'
     }
-    window.history.pushState(null, null, '../html/login.html')
+    window.history.replaceState(null, null, '../html/login.html')
     window.location.href = '../html/login.html'
     window.addEventListener('popstate', () => {
-      window.history.pushState(null, null, '../html/login.html')
+      window.history.replaceState(null, null, '../html/login.html')
     })
 
     sessionStorage.setItem('redirected', true)

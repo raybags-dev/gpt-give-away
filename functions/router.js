@@ -10,6 +10,10 @@ const asyncMiddleware = require('../middleware/asyncErros')
 // cache
 let cache = apicache.middleware
 
+// ;(async () => {
+//   await GPT_5('hi')
+// })()
+
 const {
   loginUser,
   authMiddleware,
@@ -80,11 +84,14 @@ function AskGPT (app) {
         if (cachedResponse.user.toString() !== req.user.userId) {
           return res.status(401).json({ error: 'Unauthorized access' })
         }
+
         return res
           .status(200)
           .json({ status: 'Success', response: cachedResponse.response })
       }
       const response = await GPT_5(question)
+      if (response == 'Engine is down')
+        return res.status(429).json('server is down, please try  again later')
       const cleanedResponse = response.replace(/[\r\n]{2,}/g, '\n').trim()
       const userId = req.user.userId
       try {
@@ -122,29 +129,6 @@ function AskGPT (app) {
           status: 'Error',
           message: 'An internal error occurred:  ' + error.message
         })
-      }
-    })
-  )
-}
-function GetAllResults (app) {
-  app.post(
-    '/raybags/v1/wizard/data-all',
-    authMiddleware,
-    asyncMiddleware(async (req, res) => {
-      try {
-        const userId = req.user.userId // Updated this line to use userId instead of _id
-
-        let response = await GPT_RESPONSE.find({ user: userId }).sort({
-          createdAt: -1
-        })
-        if (!response.length) return res.status(404).json('No documents found!')
-        res.status(200).json({ data: response })
-        return response
-      } catch (error) {
-        console.error(error)
-        return res
-          .status(500)
-          .json({ status: 'Error', message: 'An internal error occurred' })
       }
     })
   )
@@ -193,43 +177,32 @@ function DeleteOne (app) {
     })
   )
 }
-// get all docs
-// function GetAll (app) {
-//   app.get(
-//     '/raybags/v1/wizard/data/documents-all',
-//     authMiddleware,
-//     asyncMiddleware(async (req, res) => {
-//       const isAdmin = req.user.isAdmin
-//       let response
 
-//       if (isAdmin) {
-//         response = await GPT_RESPONSE.find({}, { token: 0 }).sort({
-//           createdAt: 1
-//         })
-//       } else {
-//         response = await GPT_RESPONSE.find(
-//           { user: req.user.data._id },
-//           { token: 0 }
-//         ).sort({
-//           createdAt: 1
-//         })
-//       }
-//       if (response.length === 0)
-//         return res.status(404).json('Sorry I have nothing for you!')
+function AllUserDocs (app) {
+  app.post(
+    '/raybags/v1/wizard/data/user-docs',
+    authMiddleware,
+    asyncMiddleware(async (req, res) => {
+      const isAdmin = req.user.isAdmin
+      let query
+      if (isAdmin) {
+        query = GPT_RESPONSE.find({}, { token: 0 }).sort({ createdAt: -1 })
+      } else {
+        query = GPT_RESPONSE.find(
+          { user: req.user.data._id },
+          { token: 0 }
+        ).sort({ createdAt: -1 })
+      }
+      const response = await query
+      if (response.length === 0)
+        return res.status(404).json('Sorry I have nothing for you!')
 
-//       let page = parseInt(req.query.page) || 1
-//       let perPage = parseInt(req.query.perPage) || 10
-//       let totalPages = Math.ceil(response.length / perPage)
-//       res.status(200).json({
-//         totalPages: totalPages,
-//         totalCount: response.length,
-//         data: response
-//       })
-//       return response
-//     })
-//   )
-// }
-function GetAll (app) {
+      res.status(200).json(response)
+    })
+  )
+}
+
+function GetAllPaginatedDocs (app) {
   app.post(
     '/raybags/v1/wizard/data/documents-all',
     authMiddleware,
@@ -244,7 +217,7 @@ function GetAll (app) {
         query = GPT_RESPONSE.find(
           { user: req.user.data._id },
           { token: 0 }
-        ).sort({ createdAt: 1 })
+        ).sort({ createdAt: -1 })
       }
       // clone the query object
       const countQuery = query.model.find(query.getFilter())
@@ -386,8 +359,8 @@ module.exports = {
   CreateUser,
   Login,
   AskGPT,
-  GetAllResults,
-  GetAll,
+  AllUserDocs,
+  GetAllPaginatedDocs,
   DeleteOne,
   FindOneItem,
   DeleteAll,
