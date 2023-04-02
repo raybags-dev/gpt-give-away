@@ -13,3 +13,9 @@ Ansible is an open-source automation engine and IT orchestration tool. It is use
 
 Autoscaling is an automated process in which the computing resources are increased or decreased depending on demand. This allows for better usage of resources and cost savings, as the system is able to keep only the amount of servers needed at any given time. Autoscaling mechanisms use metrics like CPU utilization and throughput to detect when there is a need to scale up or down. This can be done either manually or automatically.
 **********************************
+
+A galaxy is a vast collection of millions or billions of stars and associated gas, dust, and dark matter bound together by gravity. Galaxies come in many shapes and sizes and are often grouped together in clusters. Our own Milky Way is an example of a typical barred spiral galaxy.
+**********************************
+
+Galaxies range in size from as few as 10 million stars to over 1 trillion stars. The Milky Way, which is the galaxy that we live in, contains roughly 200–400 billion stars.
+**********************************

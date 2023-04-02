@@ -118,10 +118,10 @@ function createResButton (res_sum) {
 
 // handler for card details theme
 const themeToggle = document.querySelector('#theme-toggle')
-themeToggle.addEventListener('change', function () {
+themeToggle?.addEventListener('change', function () {
   let mainTheme = localStorage.getItem('theme')
   const btns = document.querySelectorAll('.summery_smry')
-  btns.forEach(btn => {
+  btns?.forEach(btn => {
     if (mainTheme === 'light') {
       btn?.classList.add('bg-dark')
       btn?.classList.remove('bg-light')
