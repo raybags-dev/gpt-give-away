@@ -37,7 +37,6 @@
             box-shadow: none;
         }
 
-
         modal-bg {
             background-color: #343a40;
             color: #fff;
@@ -153,6 +152,11 @@
             transform: translateY(0px) !important;
         }
 
+        .take_out {
+            opacity: .0 !important;
+            transition: all .5s !important;
+        }
+
         .scroll__inner {
             overflow: hidden auto;
             max-height: inherit;
@@ -174,10 +178,10 @@
             border-radius: .3rem;
             width: 100% !important;
             background-color: transparent !important;
-            bottom: 1%;
-            left: 0%;
-            right: 0%;
+            left: 50%;
+            top: 94%;
             height: 10%;
+            transform: translate(-50%, -50%);
         }
 
         .loader {
@@ -211,6 +215,13 @@
         }
 
         @media screen and (max-width:450px) {
+            #message__center {
+                display: flex;
+                flex-direction: column;
+                bottom: 0%;
+                padding: .3rem 1.5rem .1rem 1.5rem;
+            }
+
             #question____form {
                 display: flex !important;
                 flex-direction: column !important;
@@ -221,6 +232,15 @@
             #question____form>* {
                 min-width: 100% !important;
                 margin-bottom: .5rem;
+                font-size: 0.8rem !important;
+            }
+
+            .card {
+                font-size: 0.8rem !important;
+            }
+
+            .summery_smry {
+                font-size: 0.8rem;
             }
 
             #usage-btn {
@@ -232,8 +252,8 @@
                 opacity: 1;
             }
 
-            header h3 {
-                font-size: 0.5rem !important;
+            header h5 {
+                font-size: 0.9rem !important;
             }
 
             #message__btn {
@@ -257,7 +277,6 @@
             header {
                 min-width: 100%;
                 text-align: center;
-                margin-top: .5rem;
             }
         }
 
@@ -335,7 +354,7 @@
                 </div>
             </div>
 
-            <div id="message__center" class=" Q_n_A_form">
+            <div id="message__center" class=" Q_n_A_form container">
                 <form id="question____form" class="input-group container container-fluid" action="submit">
                     <input style="text-shadow: 1px 1px 0px white;" id="qn-inpuut" type="text"
                         class="shadow rounded form-control" placeholder="type your question..." aria-label="">

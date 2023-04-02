@@ -1,3 +1,4 @@
+import { api, runLoader, showNotification } from './heavy_lift.js'
 function RESPONSE_HTML (
   email,
   doc_generated,
@@ -52,16 +53,43 @@ function RESPONSE_HTML (
   resContainer.prepend(newResponse)
 
   // Implimenting DELETION
+
   document
     .querySelector('#dele__icon')
     ?.addEventListener('click', async function (e) {
       CreateDeleModal()
       let card = e.target.closest('.card')
-      // document
-      //   .querySelector('#purgeItem')
-      //   ?.addEventListener('click', async function (e) {
-      //     e.target.closest('.del_modall').remove()
-      //   })
+      let small = card.querySelector('.card-footer small')
+      let span = small.querySelector('span:nth-child(2)')
+      let _id = span.textContent.trim()
+
+      document
+        .querySelector('#purgeItem')
+        .addEventListener('click', async e => {
+          runLoader(false, 'Deleteing...')
+          const email = JSON.parse(sessionStorage.getItem('token')).email
+          const token = JSON.parse(sessionStorage.getItem('token')).token
+          const url = `/delete-document/${_id}`
+          try {
+            const res = await api.delete(url, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              data: { email }
+            })
+            if (res.status === 200) {
+              setTimeout(() => {
+                runLoader(true)
+                card.remove()
+              }, 2000)
+              return
+            }
+            showNotification('Request failed. Please try again later')
+          } catch (error) {
+            console.log(error)
+          }
+        })
     })
 }
 
@@ -79,9 +107,9 @@ function CreateDeleModal () {
                 <div class="modal-body">
                     You are about to delete this document
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button id="purgeItem" type="button" class="btn btn-danger">Delete</button>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-transparent btn-outline-success btn-sm text-white" data-bs-dismiss="modal">Cancel</button>
+                    <button id="purgeItem" type="button" class="btn btn-sm text-danger btn-outline-danger" data-bs-dismiss="modal">Delete</button>
                 </div>
             </div>
         </div>
@@ -99,10 +127,6 @@ function CreateDeleModal () {
   var showDelModalLink = document.querySelector('.deleAnchor')
   showDelModalLink.click()
 }
-// ===============================
-// ===============================
-// ===============================
-// ===============================
 // create details button
 function createResButton (res_sum) {
   const mainTheme = localStorage.getItem('theme')
@@ -115,7 +139,6 @@ function createResButton (res_sum) {
     </button>
   `
 }
-
 // handler for card details theme
 const themeToggle = document.querySelector('#theme-toggle')
 themeToggle?.addEventListener('change', function () {
