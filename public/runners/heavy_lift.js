@@ -192,8 +192,7 @@ function handleQuestionFormSubmit () {
 
     if (!data) {
       showNotification('Invalid input, you must ask a valid question ')
-      input.focus()
-      setTimeout(() => runLoader(true), 2000)
+      runLoader(true)
       return
     }
 
