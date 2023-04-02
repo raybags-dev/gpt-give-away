@@ -1,0 +1,15 @@
+
+
+You can install nginx on your mac using brew by running the following command in your terminal:
+
+brew install nginx
+**********************************
+
+State management is the process of managing application state, or data associated with an application instance - such as settings or user preferences - within an application. State management frameworks and libraries help developers create maintainable applications by providing a common architecture to manage state in a predictable and consistent way.
+**********************************
+
+Ansible is an open-source automation engine and IT orchestration tool. It is used for configuration management, application deployment and task automation. Ansible automates configuration management, application deployment, and other IT operations tasks through a simple yet powerful language known as playbooks. Playbooks allow for description of automation jobs in human-readable YAML syntax.
+**********************************
+
+Autoscaling is an automated process in which the computing resources are increased or decreased depending on demand. This allows for better usage of resources and cost savings, as the system is able to keep only the amount of servers needed at any given time. Autoscaling mechanisms use metrics like CPU utilization and throughput to detect when there is a need to scale up or down. This can be done either manually or automatically.
+**********************************

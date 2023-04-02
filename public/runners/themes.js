@@ -4,16 +4,14 @@ const TOGGLE_THEME = async () => {
     const navBar = document.querySelector('.navbar')
     const toggler = document.querySelector('#theme-toggle')
     const dropdown = document.querySelector('#drop_menu')
-    // const messageInput = document.querySelector('#qn-inpuut')
-    let currentTheme = localStorage.getItem('theme')
 
+    let currentTheme = localStorage.getItem('theme')
     if (!currentTheme) currentTheme = 'light'
 
     body.classList.add(`bg-${currentTheme}`)
     navBar?.classList.add(`navbar-${currentTheme}`)
     navBar?.classList.add(`bg-${currentTheme}`)
     dropdown?.classList.add(`dropdown-menu-${currentTheme}`)
-    // messageInput?.classList.add(`bg-${currentTheme}`)
 
     // Add card classes
     const cards = document.querySelectorAll('.card')
@@ -39,8 +37,6 @@ const TOGGLE_THEME = async () => {
         body.classList.replace('bg-light', 'bg-dark')
         navBar?.classList.replace('navbar-light', 'navbar-dark')
         navBar?.classList.replace('bg-light', 'bg-dark')
-        // messageInput?.classList.replace('bg-light', 'bg-dark')
-        // messageInput?.classList.add('text-light')
         dropdown?.classList.replace('dropdown-menu-light', 'dropdown-menu-dark')
         localStorage?.setItem('theme', 'dark')
 
@@ -57,8 +53,6 @@ const TOGGLE_THEME = async () => {
         body.classList.replace('bg-dark', 'bg-light')
         navBar?.classList.replace('navbar-dark', 'navbar-light')
         navBar?.classList.replace('bg-dark', 'bg-light')
-        // messageInput.classList.replace('bg-dark', 'bg-light')
-        // messageInput.classList.remove('text-light')
         dropdown?.classList.replace('dropdown-menu-dark', 'dropdown-menu-light')
         localStorage?.setItem('theme', 'light')
 
@@ -80,8 +74,6 @@ const TOGGLE_THEME = async () => {
         body.classList.replace('bg-light', `bg-${currentTheme}`)
         navBar?.classList.replace('navbar-light', `navbar-${currentTheme}`)
         navBar?.classList.replace('bg-light', `bg-${currentTheme}`)
-        // messageInput.classList.replace('bg-light', `bg-${currentTheme}`)
-        // messageInput.classList.remove('text-dark')
 
         dropdown?.classList.replace(
           'dropdown-menu-light',

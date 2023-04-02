@@ -67,6 +67,5 @@ function inputEventHandler () {
   clearTimeout(typingTimer)
   typingTimer = setTimeout(searchDatabase, doneTypingInterval)
 }
-
 // Add an event listener to the input
 searchingInput?.addEventListener('input', inputEventHandler)

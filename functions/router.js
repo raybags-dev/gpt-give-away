@@ -90,8 +90,9 @@ function AskGPT (app) {
           .json({ status: 'Success', response: cachedResponse.response })
       }
       const response = await GPT_5(question)
-      if (response == 'Engine is down')
-        return res.status(429).json('server is down, please try  again later')
+      // if (response == 'Engine is down')
+      //   return res.status(429).json('server is down, please try  again later')
+
       const cleanedResponse = response.replace(/[\r\n]{2,}/g, '\n').trim()
       const userId = req.user.userId
       try {

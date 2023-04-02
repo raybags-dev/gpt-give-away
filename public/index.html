@@ -14,6 +14,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- font type -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+
     <!-- font awesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -28,6 +29,14 @@
         .summery_smry:hover {
             cursor: pointer;
         }
+
+        .summery_smry:focus,
+        .summery_smry:active,
+        .summery_smry:active:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
 
         modal-bg {
             background-color: #343a40;
@@ -251,6 +260,29 @@
                 margin-top: .5rem;
             }
         }
+
+        .delete_icon_container {
+            width: 30px;
+            height: 30px;
+            padding: .2rem;
+            transition: all .2s;
+        }
+
+        .delete_icon_container i {
+            font-size: 1.5rem;
+            opacity: .2;
+            color: rgb(156, 154, 154);
+        }
+
+        .delete_icon_container:hover i {
+            opacity: 1;
+            transition: all .2s;
+            color: #f75c5c;
+        }
+
+        .delete_icon_container:active i {
+            transform: scale(0.89);
+        }
     </style>
     <!-- custom js -->
     <script type="module" src="./runners/main.js" defer></script>
@@ -279,7 +311,7 @@
                             style="backdrop-filter:blur(3px); background: rgba(240, 240, 240, 0.5) !important;"
                             aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item log_out_btn" href="#">Logout</a></li>
-                            <li><a id="del__btn" class="dropdown-item" href="#">Develet account</a></li>
+                            <li><a id="del__btn" class="dropdown-item" href="#">Delelet account</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -295,6 +327,8 @@
     </header>
 
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
+        <a class="deleAnchor" style="display:none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
+
         <div class="container __2nd__main_out">
             <hr>
             <div id="__outter1_container" class="g-4">
@@ -315,7 +349,7 @@
         <a tabindex="0" id="usage-btn" role="button" class="popover-dismiss" data-bs-toggle="popover"
             data-bs-trigger="focus"
             data-bs-content="Any question you ask will be responded to and your response will be stored in your own database instance. You have full access to your content and you can delete it any moment">
-            <i class=" fa-regular fa-circle-question"></i>
+            <i class="fa-regular fa-circle-question"></i>
         </a>
 
     </main>

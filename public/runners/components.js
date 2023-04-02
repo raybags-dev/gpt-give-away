@@ -23,12 +23,9 @@ function RESPONSE_HTML (
         <div class="card shadow rounded ${cardClass}">
         <div class="card-header container-fluid d-flex align-content-between"
         <p class="card-header text-muted">${email || 'username placeholder'}</p>
-        <a class="nav-link dropdown-toggle float-end" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          </a>
-          <ul class="dropdown-menu bg-transparent" style="backdrop-filter:blur(3px);z-index:10; background: rgba(240, 240, 240, 0.5) !important;" aria-labelledby="navbarDropdownMenuLink">
-          <li><a id="delete__document" class="dropdown-item" href="#">Delete document</a></li>
-          <li><a id="expand__document" class="dropdown-item" href="#">Full screen</a></li>
-        </ul>
+        <span id="dele__icon" class="delete_icon_container" style="position:fixed;right:1%;top:1%;display:inline-block;text-align:center;cursor:pointer">
+          <i class="fa-regular fa-trash-can">
+        </i></span>
         </div>
         <div class="card-body">
             <p class="fst-italic text-muted">Created: ${
@@ -37,14 +34,8 @@ function RESPONSE_HTML (
             <p class="card-text para__ans">${qn || 'question placeholder'}</p>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item bg-transparent">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button summery_smry rounded collapsed" style="z-index:10000" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-                            aria-expanded="false" aria-controls="flush-collapseOne">
-                            ${res_sum || 'summery placeholder'}
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse text-transparent"
+                        ${createResButton(res_sum)}
+                    <div id="flush-collapseOne" class="accordion-collapse collapse"
                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">${
                           response || 'response placeholder'
@@ -59,5 +50,88 @@ function RESPONSE_HTML (
         </small>
         </div>`
   resContainer.prepend(newResponse)
+
+  // Implimenting DELETION
+  document
+    .querySelector('#dele__icon')
+    ?.addEventListener('click', async function (e) {
+      CreateDeleModal()
+      let card = e.target.closest('.card')
+      // document
+      //   .querySelector('#purgeItem')
+      //   ?.addEventListener('click', async function (e) {
+      //     e.target.closest('.del_modall').remove()
+      //   })
+    })
 }
+
+// create delete model
+
+function CreateDeleModal () {
+  let container = document.querySelector('#main__wrapper')
+  let wrapperElement = `
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content del_modall bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Document</h5>
+                </div>
+                <div class="modal-body">
+                    You are about to delete this document
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="purgeItem" type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  `
+  // Convert wrapperElement to a DOM element
+  let wrapperElementDOM = document
+    .createRange()
+    .createContextualFragment(wrapperElement)
+
+  // Insert the wrapperElementDOM before the second child of container
+  container.insertBefore(wrapperElementDOM, container.children[1])
+
+  // Click the .showDelModal link
+  var showDelModalLink = document.querySelector('.deleAnchor')
+  showDelModalLink.click()
+}
+// ===============================
+// ===============================
+// ===============================
+// ===============================
+// create details button
+function createResButton (res_sum) {
+  const mainTheme = localStorage.getItem('theme')
+  const btnClass = mainTheme === 'dark' ? 'bg-dark' : 'bg-light'
+  return `
+    <button class="accordion-button ${btnClass} summery_smry rounded collapsed"
+      data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+      aria-expanded="false" aria-controls="flush-collapseOne">
+      ${res_sum || 'summery placeholder'}
+    </button>
+  `
+}
+
+// handler for card details theme
+const themeToggle = document.querySelector('#theme-toggle')
+themeToggle.addEventListener('change', function () {
+  let mainTheme = localStorage.getItem('theme')
+  const btns = document.querySelectorAll('.summery_smry')
+  btns.forEach(btn => {
+    if (mainTheme === 'light') {
+      btn?.classList.add('bg-dark')
+      btn?.classList.remove('bg-light')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      btn?.classList.add('bg-light')
+      btn?.classList.remove('bg-dark')
+      localStorage.setItem('theme', 'light')
+    }
+  })
+})
+
 export { RESPONSE_HTML }

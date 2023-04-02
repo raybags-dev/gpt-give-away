@@ -218,6 +218,7 @@ function handleQuestionFormSubmit () {
         const res = await api.post(url, query, { headers })
         const latestQuestion = res.data.data[0]
         const { createdAt, question, response, _id, updatedAt } = latestQuestion
+        console.log(latestQuestion)
         RESPONSE_HTML(
           formatEmail(email),
           formatDate(createdAt),
@@ -307,7 +308,7 @@ async function FETCH_DATA () {
           response,
           response,
           updatedAt,
-          user
+          _id
         )
         const responses = document.querySelectorAll('.card')
         const lastIndex = responses.length - 1

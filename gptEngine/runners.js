@@ -15,7 +15,7 @@ module.exports = {
       })
       const openai = new OpenAIApi(configuration)
 
-      let OPTIONS = {
+      let OPTIONS_1 = {
         model: 'text-davinci-003',
         prompt: arg,
         temperature: 0.9,
@@ -25,8 +25,14 @@ module.exports = {
         presence_penalty: 0.6
       }
 
-      const response = await openai.createCompletion(OPTIONS)
+      let OPTIONS_2 = {
+        model: 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: arg }]
+      }
+
+      const response = await openai.createCompletion(OPTIONS_1 || OPTIONS_2)
       const text = response.data.choices[0].text
+      console.log(text)
       return !text || text.includes('500 Internal Server Error')
         ? `Engine is down`
         : (WRITTER(text), text)
