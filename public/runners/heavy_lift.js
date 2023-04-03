@@ -3,7 +3,7 @@ import { formatDate, formatEmail } from './handlers.js'
 
 const api = axios.create({
   baseURL: '/raybags/v1/wizard',
-  timeout: 10000
+  timeout: 70000
 })
 api.interceptors.response.use(
   response => response,
@@ -97,7 +97,7 @@ function SIGNUP (signupForm) {
         const storedUser = { name, email, isUser: true }
         localStorage.setItem('user', JSON.stringify(storedUser))
 
-        showNotification(`Hi ${storedUser.name}. Your account has been created`)
+        showNotification(`Account for '${storedUser.name}' created.`)
         setTimeout(() => {
           runLoader(true)
           window.location.href = '/html/login.html'
@@ -116,9 +116,7 @@ function SIGNUP (signupForm) {
       ) {
         // Check if error message contains email or username
         if (err_msg?.includes('email') || err_msg?.includes('name')) {
-          showNotification(
-            'This email or username is already associated with another account.'
-          )
+          showNotification('Account already exists.')
           setTimeout(() => {
             runLoader(true)
             window.location.href = '/html/login.html'
@@ -149,7 +147,7 @@ function LOGIN (loginForm) {
         sessionStorage.setItem('token', JSON.stringify({ token, email }))
         // Redirect to main page
         sessionStorage.setItem('redirected', true)
-        showNotification(`You have successfully logged in.`)
+        showNotification(`Login uccessfull`)
         setTimeout(() => {
           runLoader(true)
           window.location.href = '../index.html'
@@ -157,8 +155,7 @@ function LOGIN (loginForm) {
       }
     } catch (error) {
       runLoader(false, 'Failed!')
-      const errorMessage =
-        error.response.data.error || 'An error occurred during login'
+      const errorMessage = error.response.data.error || 'An error occurred.'
       showNotification(`Credentials: ${errorMessage}.`)
       setTimeout(() => runLoader(true), 3000)
     }
