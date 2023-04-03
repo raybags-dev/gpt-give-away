@@ -147,7 +147,7 @@ function LOGIN (loginForm) {
         sessionStorage.setItem('token', JSON.stringify({ token, email }))
         // Redirect to main page
         sessionStorage.setItem('redirected', true)
-        showNotification(`Login uccessfull`)
+        showNotification(`Login successfull`)
         setTimeout(() => {
           runLoader(true)
           window.location.href = '../index.html'
