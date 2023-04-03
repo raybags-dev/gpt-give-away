@@ -20,8 +20,19 @@ function RESPONSE_HTML (
   const newResponse = document.createElement('div')
   const cardClass =
     mainTheme === 'dark' ? 'card-dark-background' : 'card-light-background'
+  const expandBtnId = id
+  const buttonId = `accordion-button-${id}`
+  const contentId = `accordion-content-${id}`
+
+  // Add click event listener to delete icon
+  const deleteIcon = newResponse.querySelector('#dele__icon')
+  deleteIcon?.addEventListener('click', function () {
+    const card = deleteIcon.closest('.card')
+    card.remove()
+  })
+
   newResponse.innerHTML = `
-        <div class="card shadow rounded ${cardClass}">
+        <div class="card shadow rounded ${cardClass}" style="border-radius: .7rem !important;">
         <div class="card-header container-fluid d-flex align-content-between"
         <p class="card-header text-muted">${email || 'username placeholder'}</p>
         <span id="dele__icon" class="delete_icon_container" style="position:fixed;right:1%;top:1%;display:inline-block;text-align:center;cursor:pointer">
@@ -35,9 +46,14 @@ function RESPONSE_HTML (
             <p class="card-text para__ans">${qn || 'question placeholder'}</p>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item bg-transparent">
-                        ${createResButton(res_sum)}
-                    <div id="flush-collapseOne" class="accordion-collapse collapse"
-                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        ${createResButton(
+                          expandBtnId,
+                          contentId,
+                          buttonId,
+                          res_sum
+                        )}
+                    <div id="${contentId}" class="accordion-collapse collapse"
+                        aria-labelledby="${buttonId}" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">${
                           response || 'response placeholder'
                         }</div>
@@ -51,9 +67,7 @@ function RESPONSE_HTML (
         </small>
         </div>`
   resContainer.prepend(newResponse)
-
   // Implimenting DELETION
-
   document
     .querySelector('#dele__icon')
     ?.addEventListener('click', async function (e) {
@@ -128,17 +142,18 @@ function CreateDeleModal () {
   showDelModalLink.click()
 }
 // create details button
-function createResButton (res_sum) {
+function createResButton (expId, contId, btnId, resp_sum) {
   const mainTheme = localStorage.getItem('theme')
   const btnClass = mainTheme === 'dark' ? 'bg-dark' : 'bg-light'
   return `
-    <button class="accordion-button ${btnClass} summery_smry rounded collapsed"
-      data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-      aria-expanded="false" aria-controls="flush-collapseOne">
-      ${res_sum || 'summery placeholder'}
-    </button>
+  <button class="accordion-button ${expId} summery_smry ${btnClass} rounded collapsed"
+    data-bs-toggle="collapse" data-bs-target="#${contId}"
+    aria-expanded="false" aria-controls="${contId}" id="${btnId}">
+    ${resp_sum || 'summery placeholder'}
+  </button>
   `
 }
+
 // handler for card details theme
 const themeToggle = document.querySelector('#theme-toggle')
 themeToggle?.addEventListener('change', function () {

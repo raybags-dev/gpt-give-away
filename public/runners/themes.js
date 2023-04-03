@@ -4,8 +4,8 @@ const TOGGLE_THEME = async () => {
     const navBar = document.querySelector('.navbar')
     const toggler = document.querySelector('#theme-toggle')
     const dropdown = document.querySelector('#drop_menu')
-
     let currentTheme = localStorage.getItem('theme')
+
     if (!currentTheme) currentTheme = 'light'
 
     body.classList.add(`bg-${currentTheme}`)
