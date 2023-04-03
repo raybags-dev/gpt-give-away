@@ -65,14 +65,14 @@ body {
 
 }
 
-@media screen and (max-width: 500px) {
+/* @media screen and (max-width: 500px) {
     #drop_menu {
         top: 100% !important;
         left: 0%;
         width: 100%;
         background-color: transparent;
     }
-}
+} */
 
 .theme-toggle__label:before {
     content: '';

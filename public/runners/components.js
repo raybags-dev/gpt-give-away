@@ -32,7 +32,7 @@ function RESPONSE_HTML (
   })
 
   newResponse.innerHTML = `
-        <div class="card shadow rounded ${cardClass}" style="border-radius: .7rem !important;">
+        <div class="card shadow rounded ${cardClass}" style="border-radius: .7rem !important;overflow:hidden">
         <div class="card-header container-fluid d-flex align-content-between"
         <p class="card-header text-muted">${email || 'username placeholder'}</p>
         <span id="dele__icon" class="delete_icon_container" style="position:fixed;right:1%;top:1%;display:inline-block;text-align:center;cursor:pointer">

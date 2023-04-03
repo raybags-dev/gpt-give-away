@@ -344,7 +344,6 @@ async function FETCH_DATA () {
     runLoader(true)
   }
 }
-
 async function searchDatabase (e) {
   if (e) {
     e.preventDefault()
@@ -425,6 +424,87 @@ async function searchDatabase (e) {
   }
 }
 
+async function fetchData (page = 1) {
+  const { email, token } = JSON.parse(sessionStorage.getItem('token'))
+  const url = '/data/documents-all'
+  const perPage = 10
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
+  const body = { email }
+  const res = await api.post(url, body, {
+    headers,
+    params: { page, perPage }
+  })
+  if (res.statusText == 'OK') {
+    return res.data.data
+  } else {
+    throw new Error('Failed to fetch data')
+  }
+}
+
+function fetchAndPaginateData () {
+  let page = 1
+  const container = document.querySelector('#RES_container')
+  setTimeout(() => {
+    const { email } = JSON.parse(sessionStorage.getItem('token'))
+    let loading = false
+    let target = container.children[container.children.length - 2]
+
+    const observer = new IntersectionObserver(async entries => {
+      const lastEntry = entries[entries.length - 1]
+
+      if (lastEntry.isIntersecting && !loading) {
+        runLoader(false, 'Loading...')
+        loading = true
+        try {
+          const data = await fetchData(++page)
+          if (data.length) {
+            data.forEach((obj, index) => {
+              const { _id, question, response, updatedAt, createdAt } = obj
+              RESPONSE_HTML(
+                formatEmail(email),
+                formatDate(createdAt),
+                question,
+                response,
+                response,
+                updatedAt,
+                _id
+              )
+              const responses = document.querySelectorAll('.card')
+              const lastIndex = responses.length - 1
+              if (index === lastIndex) {
+                responses[lastIndex].classList.add('bring_in')
+              }
+            })
+            setTimeout(() => runLoader(true), 1000)
+
+            if (data.length < 10) {
+              showNotification(`Last page: ${page}`)
+              observer.unobserve(target)
+            } else {
+              loading = false
+              target = container.children[container.children.length - 2]
+            }
+          }
+        } catch (error) {
+          console.log(error.message)
+        } finally {
+          runLoader(true)
+        }
+      }
+    })
+
+    if (target) {
+      observer.observe(target)
+    } else {
+      console.warn('DevTools failed to load source map: ')
+    }
+  }, 1000)
+}
+
+fetchAndPaginateData()
 export {
   api,
   SIGNUP,
