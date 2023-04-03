@@ -258,7 +258,6 @@ function handleQuestionFormSubmit () {
     submitForm()
   })
 }
-
 async function FETCH_DATA () {
   runLoader(false, 'Loading...')
   try {
@@ -320,7 +319,8 @@ async function FETCH_DATA () {
       error?.response.status == 404
     ) {
       runLoader(true)
-      return showNotification('You dont seem to have any documents saved.')
+      console.warn(error.message)
+      return showNotification('You dont have any saved documents.')
     }
 
     if (error?.response.status == 401) {
@@ -339,7 +339,7 @@ async function FETCH_DATA () {
         window.location.href = '../html/signup.html'
       }, 3000)
     }
-    console.log(e)
+    console.warn(error.message)
   } finally {
     runLoader(true)
   }
@@ -440,17 +440,20 @@ async function fetchData (page = 1) {
   if (res.statusText == 'OK') {
     return res.data.data
   } else {
-    throw new Error('Failed to fetch data')
+    console.warn('Failed to fetch data')
   }
 }
 
+// call database on scroll
 function fetchAndPaginateData () {
   let page = 1
   const container = document.querySelector('#RES_container')
+
   setTimeout(() => {
+    if (!container) return
     const { email } = JSON.parse(sessionStorage.getItem('token'))
     let loading = false
-    let target = container.children[container.children.length - 2]
+    let target = container?.children[container.children.length - 2]
 
     const observer = new IntersectionObserver(async entries => {
       const lastEntry = entries[entries.length - 1]
@@ -489,17 +492,17 @@ function fetchAndPaginateData () {
             }
           }
         } catch (error) {
-          console.log(error.message)
+          console.warn(error.message)
         } finally {
           runLoader(true)
         }
       }
     })
 
-    if (target) {
+    const responses = document.querySelectorAll('.card')
+    if (responses.length >= 10) {
+      // Only start observing when there are at least 10 items on the first page
       observer.observe(target)
-    } else {
-      console.warn('DevTools failed to load source map: ')
     }
   }, 1000)
 }
