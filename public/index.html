@@ -47,6 +47,55 @@
             color: #fff;
         }
 
+        .prof_cont {
+            backdrop-filter: blur(5px);
+            position: fixed;
+            min-width: 100%;
+            top: 0%;
+            left: 0%;
+            right: 0;
+            bottom: 0;
+            height: 100% !important;
+            display: grid;
+            z-index: 10000;
+            place-content: center;
+        }
+
+        #icon-pl-prof {
+            position: absolute;
+            top: 50%;
+            left: 3%;
+            color: rgb(128, 128, 128, .5);
+            transform: translate(0%, -50%);
+            font-size: 8rem;
+        }
+
+        #profilePic {
+            overflow: hidden;
+        }
+
+        #profilePic::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 10%;
+            height: 100%;
+            z-index: 1;
+            opacity: .1;
+            transition: all .5s;
+            filter: blur(30px);
+            transform: rotateY(20deg);
+            background-color: rgba(255, 255, 255, 0.1);
+            animation: shadow-hunter 3 alternate .8s;
+        }
+
+        @keyframes shadow-hunter {
+            to {
+                left: 100%;
+            }
+        }
+
         #usage-btn {
             position: fixed;
             display: grid;
@@ -237,6 +286,26 @@
             #usage-btn {
                 left: 90%;
             }
+
+            #profilePic {
+                display: grid;
+                place-content: center;
+                height: 60vw;
+            }
+
+            #icon-pl-prof {
+                font-size: 20rem;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #profBtn {
+                float: right;
+            }
+
+            #icon-pl-prof {
+                opacity: .2;
+            }
         }
 
         @media screen and (max-width:450px) {
@@ -247,15 +316,23 @@
                 padding: .3rem 1.5rem .1rem 1.5rem;
             }
 
-
             #question____form>* {
                 min-width: 100% !important;
                 margin-bottom: .5rem;
                 font-size: 0.8rem !important;
             }
 
+            #prof_btn_container>a {
+                font-size: .78rem;
+            }
+
             #usage-btn {
                 left: 85%;
+            }
+
+            #profBtn {
+                float: center;
+                min-width: 100%;
             }
 
             .card {
@@ -312,6 +389,14 @@
         .delete_icon_container:active i {
             transform: scale(0.89);
         }
+
+        .nav-item {
+            font-style: italic;
+        }
+
+        .nav-item:hover a {
+            color: #48f67680 !important;
+        }
     </style>
     <!-- custom js -->
     <script type="module" src="./runners/main.js" defer></script>
@@ -336,13 +421,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" style="text-decoration:none !important;" href="#">Fetch profile</a>
+                        <a id="fetch_prof_link" class="nav-link" style="text-decoration:none !important;" href="#">My
+                            Profile</a>
                     </li>
                     <li class="nav-item">
                         <a id="del__btn" style="text-decoration:none !important;"
                             title="If you delete your account, all your documents will be deleted as well."
                             class="nav-link" href="#">Delete
-                            Account</a>
+                            Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link log_out_btn" style="text-decoration:none !important;" href="#">Logout</a>

@@ -82,10 +82,10 @@ async function delUserHelper (email, userId, token) {
   runLoader(false, 'Finalizing...')
   let url2 = '/purge-account'
   try {
-    const response = await api.delete(
-      `${url2}/${userId}`,
-      { data: { email }, headers: { Authorization: `Bearer ${token}` } } // merge headers with request config object
-    )
+    const response = await api.delete(`${url2}/${userId}`, {
+      data: { email },
+      headers: { Authorization: `Bearer ${token}` }
+    })
     if (response.status == 200) {
       showNotification('Done', 'Account deleted')
       setTimeout(() => {
@@ -99,4 +99,4 @@ async function delUserHelper (email, userId, token) {
     console.log(e)
   }
 }
-export { formatDate, generateDeleteModel, formatEmail }
+export { formatDate, generateDeleteModel, formatEmail, DELETE_USERDOCS }

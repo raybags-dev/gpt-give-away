@@ -8,6 +8,7 @@ const {
   DeleteOne,
   FindOneItem,
   DeleteAll,
+  GetUserProfile,
   deleteAllForUser,
   FindUser,
   deleteUserAndOwnDocs,
@@ -21,6 +22,7 @@ module.exports = async app => {
   AllUserDocs(app)
   GetAllPaginatedDocs(app)
   DeleteOne(app)
+  GetUserProfile(app)
   FindOneItem(app)
   deleteAllForUser(app)
   DeleteAll(app)

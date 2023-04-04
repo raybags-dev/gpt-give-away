@@ -65,42 +65,7 @@ module.exports = {
     }
     next()
   },
-  // authMiddleware: async (req, res, next) => {
-  //   // Check if Authorization header is present
-  //   const authHeader = req.headers['authorization']
-  //   if (!authHeader) {
-  //     return res.status(401).json({ error: 'Missing Authorization header' })
-  //   }
-  //   // Extract JWT token from Authorization header
-  //   const [bearer, token] = authHeader.split(' ')
-  //   if (bearer !== 'Bearer' || !token) {
-  //     return res.status(401).json({ error: 'Invalid Authorization header' })
-  //   }
-  //   // Verify and decode JWT token
-  //   try {
-  //     const decodedToken = jwt.verify(token, ACCESS_TOKEN)
-  //     // Attach decoded token to request object for use in subsequent middleware or routes
-  //     req.user = decodedToken
-  //     req.token = token // Attach token to request object for use in subsequent middleware or routes
-  //     // Check if the email address in the token matches the email address of the user making the request
 
-  //     if (decodedToken.data.email !== req.body.email) {
-  //       return res.status(401).json({ error: 'Unauthorized access' })
-  //     }
-  //     // Check if user with email exists in database
-  //     const user = await USER_MODEL.findOne({ email: req.body.email })
-
-  //     if (!user) {
-  //       return res.status(401).json({ error: 'User not found' })
-  //     }
-  //     req.locals = { user } // attach user object to req.locals
-  //     next()
-  //   } catch (error) {
-  //     return res
-  //       .status(401)
-  //       .json({ error: 'Invalid token', message: error.message })
-  //   }
-  // },
   authMiddleware: async (req, res, next) => {
     // Check if Authorization header is present
     const authHeader = req.headers['authorization']

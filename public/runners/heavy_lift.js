@@ -1,5 +1,5 @@
 import { RESPONSE_HTML } from './components.js'
-import { formatDate, formatEmail } from './handlers.js'
+import { formatDate, formatEmail, DELETE_USERDOCS } from './handlers.js'
 
 const api = axios.create({
   baseURL: '/raybags/v1/wizard',
@@ -498,7 +498,6 @@ function fetchAndPaginateData () {
         }
       }
     })
-
     const responses = document.querySelectorAll('.card')
     if (responses.length >= 10) {
       // Only start observing when there are at least 10 items on the first page
@@ -506,8 +505,88 @@ function fetchAndPaginateData () {
     }
   }, 1000)
 }
-
 fetchAndPaginateData()
+
+function createProfileCard (
+  username = 'name placeholder',
+  email = 'email placeholder',
+  createdAt = 'time placeholder',
+  userId = 'user id placeholder'
+) {
+  const html = `
+  <div class="container prof_cont">
+    <div id="profilePic" class="card mb-3 shadow rounded bg-dark"
+        style="max-width:700px; width:80vw; padding:1rem; border-radius:.7rem !important;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <i id="icon-pl-prof" class="fa-solid fa-user img-fluid rounded-start"></i>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="lead text-muted">Name: <span class="text-muted">${username}</span></p>
+                    <p class="lead text-muted">Email: <span class="text-muted">${email}</span></p>
+                    <p class="lead text-muted">Date: <span class="text-muted">${createdAt}</span></p>
+                    <p class="lead text-muted">UserId: <span class="text-muted">${userId}</span></p>
+                </div>
+                <div id="prof_btn_container" class="container container-fluid">
+                    <a id="prof___delete" href="#"
+                        class="btn btn-transparent pb-1 float-end text-danger text-muted btn-outline-secondary">Delete
+                        Me</a>
+                    <a id="prof___remove"  href="#" class="btn btn-transparent text-red  btn-outline-secondary">Done
+                        here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+`
+  const container = document.createElement('div')
+  container.innerHTML = html.trim()
+  const header = document.querySelector('header')
+  header.parentNode.insertBefore(container.firstChild, header.nextSibling)
+}
+// delete card profile from DOM
+function removeProfileCard () {
+  let profileContainer = document.querySelector('.prof_cont')
+  if (profileContainer) return profileContainer.remove()
+  return
+}
+
+const p_profBtn = document.querySelector('#fetch_prof_link')
+p_profBtn?.addEventListener('click', async () => {
+  runLoader(false)
+  // Get the email and token from sessionStorage
+  const { email, token } = JSON.parse(sessionStorage.getItem('token'))
+  const url = '/get-profile'
+  // Set the request headers
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
+  const body = { email }
+  // Send the POST request
+  let res = await api.post(url, body, { headers })
+  if (res.statusText == 'OK') {
+    const { createdAt, email, name, _id } = res.data.user
+    createProfileCard(name, email, createdAt, _id)
+    runLoader(true)
+
+    let closeProfBtn = document.querySelector('#prof___remove')
+    let deleteProf = document.querySelector('#prof___delete')
+    closeProfBtn?.addEventListener('click', () => removeProfileCard())
+
+    deleteProf?.addEventListener('click', async () => {
+      try {
+        removeProfileCard()
+        runLoader(false)
+        setTimeout(async () => await DELETE_USERDOCS(), 2000)
+      } catch (e) {
+        console.log(e)
+      }
+    })
+  }
+})
+
 export {
   api,
   SIGNUP,

@@ -353,6 +353,27 @@ function FindUser (app) {
     })
   )
 }
+
+function GetUserProfile (app) {
+  app.post(
+    '/raybags/v1/wizard/get-profile',
+    authMiddleware,
+    async (req, res) => {
+      try {
+        // Find the user based on the email in the request body
+        const user = await USER_MODEL.findOne({ email: req.body.email })
+        // Return the user object without the password
+        const userObject = user.toObject()
+        delete userObject.password
+        res.status(200).json({ user: userObject })
+      } catch (error) {
+        console.log(error.message)
+        res.status(500).json({ error: 'Server error' })
+      }
+    }
+  )
+}
+
 function NotSupported (req, res, next) {
   res.status(502).sendFile(fallbackPagePath)
 }
@@ -364,6 +385,7 @@ module.exports = {
   GetAllPaginatedDocs,
   DeleteOne,
   FindOneItem,
+  GetUserProfile,
   DeleteAll,
   NotSupported,
   deleteAllForUser,
