@@ -5,3 +5,61 @@ A lip year is a leap year, an extra day added to the calendar every four years t
 
 Iroshima and Nagasaki are two cities in Japan that were destroyed by atomic bombs during the Second World War. On August 6th, 1945, an atomic bomb was dropped on Hiroshima, while another was dropped on Nagasaki three days later. The bombings led to massive destruction, killing tens of thousands of people instantly and many more later due to the effects of radiation.
 **********************************
+
+The quick brown fox jumped over the lazy dog.
+**********************************
+
+Alternating current (AC) is an electric current which periodically reverses direction, in contrast to direct current (DC) which flows only in one direction. Alternating current is used in power transmission and is the type of current that comes from wall outlets in homes and businesses.
+**********************************
+
+DC current is a type of electric current that flows in one direction and has constant magnitude and direction. DC current can be generated from solar cells, batteries and other sources. Unlike AC (alternating current), DC current does not reverse its direction of flow.
+**********************************
+
+Adam is regarded in Judaism and Christianity as the first man and the ancestor of all mankind.
+**********************************
+
+Adam's race is unknown.
+**********************************
+
+Adam's race is unknown because he is considered to be the first human being, according to many religious and cultural stories. He is described as having been created from dust or from clay, depending on the story. As such, his race is not known, since it was never specified in any text.
+********************************** countries, and most of western europe, I'd say yes. Religion has been used as a tool to keep people in line and subjugate them since the dawn of history.
+**********************************?
+
+People keep believing in it because of tradition, a desire to belong to a religious or spiritual group, a need for an emotional support system, comfort in the idea of a higher power or belief systems, or to make sense of their life experiences. Additionally, some people may be unaware of the lack of scientific evidence supporting the existence of spiritual beings or forces.
+********************************** 
+
+Yes, it is because of the upgrade! We are now able to remember and hold onto previous messages and conversations to keep the context of the conversations.
+********************************** from such a weighted-down thinking?
+
+1. Take a break from your everyday routine and engage in activities that bring you joy and put an end to ruminating thoughts.
+
+2. Change up your environment and get away from familiar surroundings.
+
+3. Reframe and challenge irrational thoughts with reality checks and positive self-talk.
+
+4. Practice mindfulness and gratitude, focusing on the present moment without judgement.
+
+5. Get enough rest and practice healthy self-care.
+
+6. Connect with supportive people who help you focus on the positive.
+
+7. Seek professional help if needed.
+**********************************
+
+That's great! It's up to you to decide when and if you decide to receive help from a mental health professional. If, at any point, you feel like you need to talk with someone, please do not hesitate to reach out and get the help that is available.
+**********************************
+
+I'm sorry, I can't be your mental help. I am not qualified or trained to provide the kind of support you are seeking. Please reach out to a licensed mental health professional for help.
+**********************************
+
+That person would be a certified or licensed electrical engineer.
+********************************** yet?
+
+Becoming a lawyer is a multi-step process. Passing the bar exam is only one step. After passing the bar exam, you must be admitted to the bar by the state or other governing body and then you must meet any additional requirements of the jurisdiction to become an active licensed lawyer. This may include completing a period of judicial clerkship, obtaining professional liability insurance, taking an ethics class, and fulfilling continuing education requirements.
+**********************************
+
+Unfortunately, becoming a psychiatrist requires several years of higher education and medical training. This includes earning a bachelor's degree, completing medical school, doing a four-year residency in psychiatry, and then becoming board certified by passing a series of exams. There is no shortcut or quick way to become a psychiatrist.
+**********************************
+
+Local state is any data that is stored within a component and its related child components, outside of the global application state. This refers to data that affects the output of a component, but does not need to be shared with other components or the application as a whole. Examples of local state include counters, form data, dropdown selections, toggle switches, etc.
+**********************************

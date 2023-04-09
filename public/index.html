@@ -31,6 +31,12 @@
             text-decoration: none !important;
         }
 
+        .modal {
+            background-image: linear-gradient(to right, rgb(36, 57, 73, .5) 0%, rgb(23, 36, 47, .2) 100%) !important;
+            color: white !important;
+        }
+
+
         .summery_smry:hover {
             cursor: pointer;
         }
@@ -72,28 +78,10 @@
 
         #profilePic {
             overflow: hidden;
-        }
-
-        #profilePic::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 10%;
-            height: 100%;
-            z-index: 1;
-            opacity: .1;
-            transition: all .5s;
-            filter: blur(30px);
-            transform: rotateY(20deg);
-            background-color: rgba(255, 255, 255, 0.1);
-            animation: shadow-hunter 3 alternate .8s;
-        }
-
-        @keyframes shadow-hunter {
-            to {
-                left: 100%;
-            }
+            transition: .3s;
+            border: 1rem solid transparent !important;
+            border: 3px solid rgb(255, 0, 0, .5) !important;
+            background-image: linear-gradient(to right, rgb(36, 57, 73, .5) 0%, rgb(23, 36, 47, .2) 100%) !important;
         }
 
         #usage-btn {

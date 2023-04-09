@@ -108,7 +108,6 @@ function RESPONSE_HTML (
 }
 
 // create delete model
-
 function CreateDeleModal () {
   let container = document.querySelector('#main__wrapper')
   let wrapperElement = `

@@ -25,13 +25,13 @@ function generateDeleteModel () {
   let modalHTML = `
           <div class="modal fade delete_modell" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered ">
-            <div id="dele-mole" class="modal-content" style="backdrop-filter:blur(5px); background: rgba(240, 240, 240, 0.2) !important;">
+            <div id="dele-mole" class="modal-content" style="backdrop-filter:blur(10px); background: rgb(23, 36, 47, .3) !important;">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel">Are you sure ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                If you delete your account, you will delete all the documents you have created will be delete as well. This process is irreversible. If this is what you want, proceed and press the button below.
+                If you delete your account, all the documents you have created through this account will be delete as well. This process is irreversible. If you wish to proceed, click the button bellow.
               </div>
               <div class="modal-footer">
                 <button id="___finalDelete" class="btn btn-danger"data-bs-dismiss="modal" aria-label="Close">Yes. Proceed.</button>
@@ -67,10 +67,10 @@ async function DELETE_USERDOCS () {
       { email },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    //res.data.email
-    // res.data._id
+
     await delUserHelper(res.data.email, res.data._id, token)
-    runLoader(true, 'Finalizing...')
+    runLoader(false, 'Finalizing...')
+    setTimeout(() => runLoader(true), 2000)
   } catch (error) {
     console.log(error)
     showNotification('Error', 'Something went wrong. Please try again later.')

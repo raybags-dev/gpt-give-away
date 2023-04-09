@@ -186,19 +186,22 @@ function AllUserDocs (app) {
     asyncMiddleware(async (req, res) => {
       const isAdmin = req.user.isAdmin
       let query
+      let count
       if (isAdmin) {
         query = GPT_RESPONSE.find({}, { token: 0 }).sort({ createdAt: -1 })
+        count = await GPT_RESPONSE.countDocuments({})
       } else {
         query = GPT_RESPONSE.find(
           { user: req.user.data._id },
           { token: 0 }
         ).sort({ createdAt: -1 })
+        count = await GPT_RESPONSE.countDocuments({ user: req.user.data._id })
       }
       const response = await query
       if (response.length === 0)
         return res.status(404).json('Sorry I have nothing for you!')
 
-      res.status(200).json(response)
+      res.status(200).json({ count: count, documents: response })
     })
   )
 }

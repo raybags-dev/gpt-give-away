@@ -34,7 +34,7 @@
         }
 
         .bg-dark {
-            background-color: #343a40;
+            background-image: linear-gradient(to right, rgb(36, 57, 73, .5) 0%, rgb(23, 36, 47, .2) 100%) !important;
             color: #fff;
         }
 
@@ -119,12 +119,28 @@
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand p-2 mb-1" href="#">
-            <img src="../images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
-                class="d-inline-block align-text-top">
-        </a>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand p-2 mb-1" href="#">
+                <img src="../images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
+                    class="d-inline-block align-text-top">
+            </a>
+        </nav> -->
+
+    <nav class="navbar navbar-expand-lg navbar-light  bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand p-2 mb-1" href="#">
+                <img src="../images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
+                    class="d-inline-block align-text-top">
+            </a>
+
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a id="to_login_p" class="nav-link active" aria-current="page" href="#">Login</a>
+                </li>
+            </ul>
+        </div>
     </nav>
+
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
         <div class="container sign___up container-fluid">
             <h3 class="text-center p-3">Signup</h3>
@@ -160,6 +176,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
         integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.querySelector('#to_login_p').addEventListener('click', () => {
+            window.location.href = '/html/login.html';
+        });
+    </script>
 </body>
 
 </html>

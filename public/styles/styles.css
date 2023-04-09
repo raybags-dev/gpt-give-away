@@ -58,21 +58,16 @@ body {
     display: block;
     width: 50px;
     height: 25px;
-    background-color: #6d6c6c;
+    background-image: linear-gradient(to right, #507da0 0%, #17242f 100%);
     border-radius: 25px;
     position: relative;
     cursor: pointer !important;
 
 }
 
-/* @media screen and (max-width: 500px) {
-    #drop_menu {
-        top: 100% !important;
-        left: 0%;
-        width: 100%;
-        background-color: transparent;
-    }
-} */
+.prof_cont {
+    background-image: linear-gradient(to right, rgb(36, 57, 73, .5) 0%, rgb(23, 36, 47, .9) 100%);
+}
 
 .theme-toggle__label:before {
     content: '';
@@ -87,61 +82,24 @@ body {
 }
 
 .theme-toggle__checkbox:checked+.theme-toggle__label {
-    background-color: #585858;
+    background-image: linear-gradient(to right, #a8c0d3 0%, #17242f 100%)
 }
 
 .theme-toggle__checkbox:checked+.theme-toggle__label:before {
     transform: translateX(25px);
-    background-color: #2b2f32;
+    background-image: linear-gradient(to right, #243949 0%, #17242f 100%)
 }
 
 .bg-dark {
-    background-color: #343a40 !important;
+    background-image: linear-gradient(to right, #243949 0%, #17242f 100%) !important;
     color: #fff !important;
 }
 
 
-
-.menu_container {
-    position: relative;
-    cursor: pointer;
-}
-
-.menu_container:focus .btn {
-    background-color: transparent !important;
-    outline: none;
-    border-color: transparent;
-    box-shadow: none !important;
-}
-
-.menu_container:focus-within .btn {
-    background-color: transparent !important;
-    outline: none;
-    border-color: transparent;
-    box-shadow: none !important;
-
-}
-
-.menu_container:active .btn {
-    background-color: transparent !important;
-    outline: none;
-    border-color: transparent;
-}
-
-.menu_container:hover .btn {
-    background-color: transparent !important;
-    outline: none;
-}
-
-#drop_menu {
-    top: 100% !important;
-    left: -100%;
-}
-
 /* ======================== */
 /* ======================== */
 .card-dark-background {
-    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    background-image: linear-gradient(to right, #131f27 45%, #17242f 100%) !important;
     color: #fff !important;
 }
 
@@ -151,12 +109,12 @@ body {
 }
 
 .input_group_light_ {
-    background-color: rgb(235, 234, 234, .6);
+    background-color: #3d607e;
     color: black;
 }
 
 .input_group_dark_ {
-    background-color: rgb(42, 48, 53);
+    background-color: #17242f;
     color: white;
 }
 
@@ -164,10 +122,6 @@ body {
 /* ======================== */
 .card_ans:hover {
     cursor: pointer;
-}
-
-.para__ans {
-    background-color: transparent;
 }
 
 .para__ans {

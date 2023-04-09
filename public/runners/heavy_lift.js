@@ -379,7 +379,7 @@ async function searchDatabase (e) {
       let hasResults = false
       // clear the contents of the container_res before appending search results
       container_res.innerHTML = ''
-      data.forEach((obj, index) => {
+      data.documents.forEach((obj, index) => {
         const { _id, question, response, updatedAt, createdAt, user } = obj
         const toLowerQn = question.toLowerCase()
         const toLowerRes = response.toLowerCase()
@@ -515,7 +515,7 @@ function createProfileCard (
 ) {
   const html = `
   <div class="container prof_cont">
-    <div id="profilePic" class="card mb-3 shadow rounded bg-dark"
+    <div id="profilePic" class="card mb-3 shadow rounded bg-transparent"
         style="max-width:700px; width:80vw; padding:1rem; border-radius:.7rem !important;">
         <div class="row g-0">
             <div class="col-md-4">
@@ -523,10 +523,11 @@ function createProfileCard (
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <p class="lead text-muted">Name: <span class="text-muted">${username}</span></p>
-                    <p class="lead text-muted">Email: <span class="text-muted">${email}</span></p>
-                    <p class="lead text-muted">Date: <span class="text-muted">${createdAt}</span></p>
-                    <p class="lead text-muted">UserId: <span class="text-muted">${userId}</span></p>
+                    <p class="lead text-danger text-uppercase">Name: <span class="text-light">${username}</span></p>
+                    <p class="lead text-danger">Eail: <span class="text-light">${email}</span></p>
+                    <p class="lead text-danger">Date: <span class="text-light">${createdAt}</span></p>
+                    <p class="lead text-danger">UserId: <span class="text-light">${userId}</span></p>
+                    <p class="lead text-danger">Documents created:<span id="doc_count_" class="text-light"></span></p>
                 </div>
                 <div id="prof_btn_container" class="container container-fluid">
                     <a id="prof___delete" href="#"
@@ -558,17 +559,22 @@ p_profBtn?.addEventListener('click', async () => {
   // Get the email and token from sessionStorage
   const { email, token } = JSON.parse(sessionStorage.getItem('token'))
   const url = '/get-profile'
+  const url_doc_count = '/data/user-docs'
   // Set the request headers
   const headers = {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json'
   }
   const body = { email }
+
   // Send the POST request
-  let res = await api.post(url, body, { headers })
-  if (res.statusText == 'OK') {
-    const { createdAt, email, name, _id } = res.data.user
-    createProfileCard(name, email, createdAt, _id)
+  let profile_response = await api.post(url, body, { headers })
+  let doc_count_response = await api.post(url_doc_count, body, { headers })
+
+  if (profile_response.statusText === 'OK' && doc_count_response.data.count) {
+    const { createdAt, email, name, _id } = await profile_response.data.user
+    const doc_count = await doc_count_response.data.count
+    createProfileCard(name, email, createdAt, _id, 0) // Start from 1
     runLoader(true)
 
     let closeProfBtn = document.querySelector('#prof___remove')
@@ -584,6 +590,18 @@ p_profBtn?.addEventListener('click', async () => {
         console.log(e)
       }
     })
+
+    // Animate the document count
+    let i = 1
+    const interval = setInterval(() => {
+      const docCountEl = document.querySelector(`#doc_count_`)
+      if (i > doc_count) {
+        clearInterval(interval)
+      } else {
+        docCountEl.innerText = ` ${i.toLocaleString()}`
+        i++
+      }
+    }, 50)
   }
 })
 

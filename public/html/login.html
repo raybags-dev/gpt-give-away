@@ -34,7 +34,7 @@
         }
 
         .bg-dark {
-            background-color: #343a40;
+            background-image: linear-gradient(to right, rgb(36, 57, 73, .5) 0%, rgb(23, 36, 47, .2) 100%) !important;
             color: #fff;
         }
 
@@ -119,11 +119,19 @@
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand p-2 mb-1" href="#">
-            <img src="../images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
-                class="d-inline-block align-text-top">
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-light  bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand p-2 mb-1" href="#">
+                <img src="../images/logo.png" alt="" width=40" height="40" style="border-radius: 50%;"
+                    class="d-inline-block align-text-top">
+            </a>
+
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a id="to_sigup_p" class="nav-link active" aria-current="page" href="#">Signup</a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
         <div class="container log___in container-fluid">
@@ -141,10 +149,6 @@
                     <input type="password" name="password" placeholder="your required" class="form-control"
                         id="exampleInputPassword1" required>
                     <div class="invalid-feedback"></div>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input pointer-event" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Take me to signup page</label>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-secondary login_btn" disabled>Submit</button>
@@ -186,10 +190,8 @@
                 }
             })
         })
-        document.querySelector('#exampleCheck1').addEventListener('click', () => {
-            if (document.querySelector('#exampleCheck1').checked) {
-                window.location.href = '/html/signup.html';
-            }
+        document.querySelector('#to_sigup_p').addEventListener('click', () => {
+            window.location.href = '/html/signup.html';
         });
     </script>
 </body>
