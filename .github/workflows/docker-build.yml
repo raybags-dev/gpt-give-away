@@ -34,12 +34,17 @@ jobs:
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
       - name: Build and push Docker image
-        run: |
-          docker build --tag revraymondbaguma/ray-gpt:latest --tag revraymondbaguma/ray-gpt:1.0.0 .
-          docker push revraymondbaguma/ray-gpt:latest
-          docker push revraymondbaguma/ray-gpt:1.0.0
         env:
           DOCKER_BUILDKIT: 1
+          VERSION: 1
+
+        run: |
+          docker build --tag revraymondbaguma/ray-gpt:latest --tag revraymondbaguma/ray-gpt:v${{ env.VERSION }} .
+          docker push revraymondbaguma/ray-gpt:latest
+          docker push revraymondbaguma/ray-gpt:v${{ env.VERSION }}
+
+          VERSION=$((VERSION+1))
+            echo "::set-env name=VERSION::$VERSION"
 
       - name: Pull latest Docker image
         run: docker pull revraymondbaguma/ray-gpt:latest
