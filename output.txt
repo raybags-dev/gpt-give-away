@@ -63,3 +63,87 @@ Unfortunately, becoming a psychiatrist requires several years of higher educatio
 
 Local state is any data that is stored within a component and its related child components, outside of the global application state. This refers to data that affects the output of a component, but does not need to be shared with other components or the application as a whole. Examples of local state include counters, form data, dropdown selections, toggle switches, etc.
 **********************************
+
+The flow of the design process was so flawed, it caused the project to fail.
+**********************************?
+
+Assuming there is no traffic and you are driving continuously, it would take 100 minutes.
+********************************** in the middle
+
+
+Yes, it is called a pentagram.
+**********************************
+
+The Milky Way galaxy is estimated to have between 100–400 billion stars.
+********************************** as"
+# #
+# #
+# # if "as" in phrase:
+# #     print("yess")
+# #
+# # a = "5"
+# #
+# # if a == 5:
+# #     print("yes")
+# #
+# #
+# # a = 4
+# #
+# # if a== 4:
+# #     print("yes")
+# #
+# # b = False
+# #
+# #
+# # if b == False:
+# #     print("yes")
+#
+#
+# c = [1,2,3]
+#
+# if 1 in c:
+#     print("yes")
+#
+#
+# d = {"name":"bob","age":25}
+#
+# if "name" in d:
+#     print("yes")
+
+# classes are used to create new user-defined objects
+# # classes allow for the creation of objects with certain properties and methods
+# 
+# class Car:
+#     def __init__(self, make, model, year):
+#         self.make = make
+#         self.model = model
+#         self.year = year
+# 
+#     def get_description(self):
+#         return f'{self.make} {self.model} from {self.year}.'
+# 
+# 
+# car = Car("Toyota", "Prius", 2020)
+# 
+# print(car.get_description())
+**********************************
+    biggest = stars.max_by do |star|
+      star[:mass]
+    end
+    biggest[:name]
+end
+**********************************
+
+function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+**********************************
+
+Sonna is an animal repellent that is used to discourage animals and birds from entering protected areas. It is a naturally derived, non-toxic substance made from the oils of certain plants, such as peppermint, lavender, eucalyptus and lemongrass. When applied to areas where animals or birds are unwanted, they will smell or taste the sonna and be discouraged from entering that area.
+**********************************

@@ -1,5 +1,10 @@
 import { RESPONSE_HTML } from './components.js'
-import { formatDate, formatEmail, DELETE_USERDOCS } from './handlers.js'
+import {
+  formatDate,
+  formatEmail,
+  DELETE_USERDOCS,
+  handleSessionError
+} from './handlers.js'
 
 const api = axios.create({
   baseURL: '/raybags/v1/wizard',
@@ -345,25 +350,17 @@ async function FETCH_DATA () {
   }
 }
 async function searchDatabase (e) {
-  if (e) {
-    e.preventDefault()
-  }
+  e?.preventDefault()
+
   const searchingInput = document.querySelector('#search____input')
   const container_res = document.querySelector('#RES_container')
   let inputValue = searchingInput?.value.trim().toLowerCase()
 
-  if (!sessionStorage.getItem('token')) {
-    showNotification('Authentication required')
-    setTimeout(() => {
-      runLoader(true)
-      window.location.href = '../html/login.html'
-    }, 3000)
-    return
-  }
+  if (!sessionStorage.getItem('token')) return handleSessionError()
   if (window.location.pathname !== '/index.html') return
 
   try {
-    runLoader(false, 'Loading...')
+    runLoader(false, 'Searching...')
     const { email, token } = JSON.parse(sessionStorage.getItem('token'))
     let url = '/data/user-docs'
     const headers = {
@@ -417,14 +414,18 @@ async function searchDatabase (e) {
       }
     }
   } catch (error) {
-    console.error(error)
-    showNotification('An internal error occurred')
+    if (error.response.status === 404)
+      return showNotification(`You dont have documents to search from.`)
+
+    console.log(error)
   } finally {
     runLoader(true)
   }
 }
-
 async function fetchData (page = 1) {
+  const sessionToken = sessionStorage.getItem('token')
+  if (!sessionToken) return handleSessionError()
+
   const { email, token } = JSON.parse(sessionStorage.getItem('token'))
   const url = '/data/documents-all'
   const perPage = 10
@@ -451,7 +452,11 @@ function fetchAndPaginateData () {
 
   setTimeout(() => {
     if (!container) return
+    const token = sessionStorage.getItem('token')
+    if (!token) return handleSessionError('Your session has expired')
+
     const { email } = JSON.parse(sessionStorage.getItem('token'))
+
     let loading = false
     let target = container?.children[container.children.length - 2]
 
@@ -517,34 +522,32 @@ function createProfileCard (
   <div class="container prof_cont">
     <div id="profilePic" class="card mb-3 shadow rounded bg-transparent"
         style="max-width:700px; width:80vw; padding:1rem; border-radius:.7rem !important;">
-        <div class="row g-0">
-            <div class="col-md-4">
+        <div class="container">
+            <div class="container">
                 <i id="icon-pl-prof" class="fa-solid fa-user img-fluid rounded-start"></i>
             </div>
-            <div class="col-md-8">
                 <div class="card-body">
-                    <p class="lead text-danger text-uppercase">Name: <span class="text-light">${username}</span></p>
+                    <p class="lead text-danger">Name: <span class="text-light">${username}</span></p>
                     <p class="lead text-danger">Eail: <span class="text-light">${email}</span></p>
                     <p class="lead text-danger">Date: <span class="text-light">${createdAt}</span></p>
                     <p class="lead text-danger">UserId: <span class="text-light">${userId}</span></p>
-                    <p class="lead text-danger">Documents created:<span id="doc_count_" class="text-light"></span></p>
+                    <p class="lead text-danger">Documents:<span id="doc_count_" class="text-light"></span></p>
                 </div>
-                <div id="prof_btn_container" class="container container-fluid">
+                <div id="prof_btn_container" class="container d-flex container-fluid">
                     <a id="prof___delete" href="#"
-                        class="btn btn-transparent pb-1 float-end text-danger text-muted btn-outline-secondary">Delete
+                        class="btn btn-transparent flex-grow-1 m-1 pb-1 float-end text-danger text-muted btn-outline-danger">Delete
                         Me</a>
-                    <a id="prof___remove"  href="#" class="btn btn-transparent text-red  btn-outline-secondary">Done
+                    <a id="prof___remove"  href="#" class="btn m-1 btn-transparent flex-grow-1 text-red  btn-outline-secondary">Done
                         here</a>
                 </div>
-            </div>
         </div>
     </div>
   </div>
 `
   const container = document.createElement('div')
   container.innerHTML = html.trim()
-  const header = document.querySelector('header')
-  header.parentNode.insertBefore(container.firstChild, header.nextSibling)
+  const navEle = document.querySelector('nav')
+  navEle.parentNode.insertBefore(container.firstChild, navEle.nextSibling)
 }
 // delete card profile from DOM
 function removeProfileCard () {
@@ -569,9 +572,16 @@ p_profBtn?.addEventListener('click', async () => {
 
   // Send the POST request
   let profile_response = await api.post(url, body, { headers })
-  let doc_count_response = await api.post(url_doc_count, body, { headers })
+  let doc_count_response
 
-  if (profile_response.statusText === 'OK' && doc_count_response.data.count) {
+  try {
+    doc_count_response = await api.post(url_doc_count, body, { headers })
+  } catch (error) {
+    console.warn(error.message)
+    doc_count_response = { data: { count: 0 } }
+  }
+
+  if (profile_response.statusText === 'OK') {
     const { createdAt, email, name, _id } = await profile_response.data.user
     const doc_count = await doc_count_response.data.count
     createProfileCard(name, email, createdAt, _id, 0) // Start from 1
@@ -587,7 +597,7 @@ p_profBtn?.addEventListener('click', async () => {
         runLoader(false)
         setTimeout(async () => await DELETE_USERDOCS(), 2000)
       } catch (e) {
-        console.log(e)
+        console.warn(e.message)
       }
     })
 

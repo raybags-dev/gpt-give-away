@@ -18,6 +18,18 @@ function formatEmail (email) {
   }
   return ''
 }
+function handleSessionError () {
+  let errorMessage = 'Session expired. Please login again.'
+  showNotification(errorMessage)
+  runLoader(false, 'Failed')
+  setTimeout(() => {
+    runLoader(true)
+    sessionStorage.setItem('redirected', true)
+    window.history.replaceState(null, null, '/html/login.html')
+    window.location.href = '/html/login.html'
+    return
+  }, 3000)
+}
 
 // Delete model
 function generateDeleteModel () {
@@ -99,4 +111,10 @@ async function delUserHelper (email, userId, token) {
     console.log(e)
   }
 }
-export { formatDate, generateDeleteModel, formatEmail, DELETE_USERDOCS }
+export {
+  formatDate,
+  generateDeleteModel,
+  formatEmail,
+  DELETE_USERDOCS,
+  handleSessionError
+}

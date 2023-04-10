@@ -198,8 +198,7 @@ function AllUserDocs (app) {
         count = await GPT_RESPONSE.countDocuments({ user: req.user.data._id })
       }
       const response = await query
-      if (response.length === 0)
-        return res.status(404).json('Sorry I have nothing for you!')
+      if (response.length === 0) return res.status(404).json('Nothing found!')
 
       res.status(200).json({ count: count, documents: response })
     })

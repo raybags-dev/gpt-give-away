@@ -24,6 +24,7 @@
     <style>
         body {
             overflow: hidden !important;
+            background-color: black;
         }
 
         li>a,
@@ -70,10 +71,11 @@
         #icon-pl-prof {
             position: absolute;
             top: 50%;
-            left: 3%;
-            color: rgb(128, 128, 128, .5);
-            transform: translate(0%, -50%);
-            font-size: 8rem;
+            left: 50%;
+            color: rgb(128, 128, 128, .05);
+            font-size: 20rem;
+            z-index: -2;
+            transform: translate(-50%, -50%);
         }
 
         #profilePic {
@@ -296,6 +298,16 @@
             }
         }
 
+        @media screen and (max-width: 564px) {
+            #profilePic {
+                min-width: 98vw !important;
+                height: max-content !important;
+                display: flex;
+                flex-wrap: nowrap;
+                font-size: .8rem !important;
+            }
+        }
+
         @media screen and (max-width:450px) {
             #message__center {
                 display: flex;
@@ -304,10 +316,15 @@
                 padding: .3rem 1.5rem .1rem 1.5rem;
             }
 
+
             #question____form>* {
                 min-width: 100% !important;
                 margin-bottom: .5rem;
                 font-size: 0.8rem !important;
+            }
+
+            #question____form {
+                bottom: 1rem !important;
             }
 
             #prof_btn_container>a {
@@ -385,13 +402,35 @@
         .nav-item:hover a {
             color: #48f67680 !important;
         }
+
+        #qn-inpuut,
+        #search____input {
+            border-color: #04adc366 transparent #04adc366 transparent;
+            box-shadow: none;
+        }
+
+        #qn-inpuut:focus,
+        #search____input:focus {
+            border-color: #04adc31a transparent #04adc3e6 transparent;
+            box-shadow: none;
+        }
+
+        .msg_input_dark {
+            background-color: rgba(34, 53, 70, 0.9) !important;
+            color: #cceefdcc !important;
+        }
+
+        .msg_input_light {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: #323a3ecc !important;
+        }
     </style>
     <!-- custom js -->
     <script type="module" src="./runners/main.js" defer></script>
 </head>
 
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg bg-light">
+<body>
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand " href="#">
                 <img src="./images/logo.png" alt="" width=35" height="35" style="border-radius: 50%;"
@@ -423,48 +462,38 @@
                     </li>
                 </ul>
                 <form class="d-flex search_db_form" role="search">
-                    <input id="search____input" class="form-control me-2" type="search" placeholder="Search..."
-                        aria-label="Search">
+                    <input id="search____input" autocomplete="off" class="form-control me-2" type="search"
+                        placeholder="Search..." aria-label="Search">
                 </form>
             </div>
         </div>
     </nav>
-    <header class="container">
-        <h5>Assistant</h5>
-    </header>
-
     <main id="main__wrapper" class="container container-fluid my-10 position-relative">
         <a class="deleAnchor" style="display:none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
         <div class="container __2nd__main_out">
-            <hr>
-            <div id="__outter1_container" class="g-4">
+            <div id="__outter1_container" class="container">
+                <p>My assistant</p>
                 <div id="RES_container" class="container container-fluid  scroll__inner p-1">
                 </div>
             </div>
-
             <div id="message__center" class=" Q_n_A_form container">
                 <form id="question____form" class="input-group container container-fluid" action="submit">
-                    <input style="text-shadow: 1px 1px 0px white;" id="qn-inpuut" type="text"
-                        class="shadow rounded form-control" placeholder="type your question..." aria-label="">
+                    <input autocomplete="off" id="qn-inpuut" type="text" class="shadow rounded form-control"
+                        placeholder="type your question here..." aria-label="">
                     <button id="message__btn" disabled class="btn btn-lg btn-outline-secondary shadow rounded"
                         type="button">Send Message</button>
                 </form>
             </div>
         </div>
-
         <a tabindex="0" id="usage-btn" role="button" class="popover-dismiss" data-bs-toggle="popover"
             data-bs-trigger="focus"
             data-bs-content="Any question you ask will be responded to and your response will be stored in your own database instance. You have full access to your content and you can delete it any moment">
             <i class="fa-regular fa-circle-question"></i>
         </a>
-
     </main>
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
         integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -472,7 +501,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"
         integrity="sha512-uaZ0UXmB7NHxAxQawA8Ow2wWjdsedpRu7nJRSoI2mjnwtY8V5YiCWavoIpo1AhWPMLiW5iEeavmA3JJ2+1idUg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script>
         var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
             trigger: 'focus'

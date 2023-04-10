@@ -95,9 +95,6 @@ body {
     color: #fff !important;
 }
 
-
-/* ======================== */
-/* ======================== */
 .card-dark-background {
     background-image: linear-gradient(to right, #131f27 45%, #17242f 100%) !important;
     color: #fff !important;
@@ -118,8 +115,6 @@ body {
     color: white;
 }
 
-/* ======================== */
-/* ======================== */
 .card_ans:hover {
     cursor: pointer;
 }

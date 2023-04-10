@@ -4,6 +4,8 @@ const TOGGLE_THEME = async () => {
     const navBar = document.querySelector('.navbar')
     const toggler = document.querySelector('#theme-toggle')
     const dropdown = document.querySelector('#drop_menu')
+    const msg_input = document.querySelector('#qn-inpuut')
+    const sch__input = document.querySelector('#search____input')
     let currentTheme = localStorage.getItem('theme')
 
     if (!currentTheme) currentTheme = 'light'
@@ -12,6 +14,8 @@ const TOGGLE_THEME = async () => {
     navBar?.classList.add(`navbar-${currentTheme}`)
     navBar?.classList.add(`bg-${currentTheme}`)
     dropdown?.classList.add(`dropdown-menu-${currentTheme}`)
+    msg_input?.classList.add(`msg_input_${currentTheme}`)
+    sch__input?.classList.add(`msg_input_${currentTheme}`)
 
     // Add card classes
     const cards = document.querySelectorAll('.card')
@@ -38,6 +42,8 @@ const TOGGLE_THEME = async () => {
         navBar?.classList.replace('navbar-light', 'navbar-dark')
         navBar?.classList.replace('bg-light', 'bg-dark')
         dropdown?.classList.replace('dropdown-menu-light', 'dropdown-menu-dark')
+        msg_input?.classList.replace('msg_input_light', 'msg_input_dark')
+        sch__input?.classList.replace('msg_input_light', 'msg_input_dark')
         localStorage?.setItem('theme', 'dark')
 
         // Add card classes
@@ -54,8 +60,10 @@ const TOGGLE_THEME = async () => {
         navBar?.classList.replace('navbar-dark', 'navbar-light')
         navBar?.classList.replace('bg-dark', 'bg-light')
         dropdown?.classList.replace('dropdown-menu-dark', 'dropdown-menu-light')
-        localStorage?.setItem('theme', 'light')
+        msg_input?.classList.replace('msg_input_dark', 'msg_input_light')
+        sch__input?.classList.replace('msg_input_dark', 'msg_input_light')
 
+        localStorage?.setItem('theme', 'light')
         // Add card classes
         const cards = document.querySelectorAll('.card')
         cards?.forEach(card => {
@@ -74,10 +82,17 @@ const TOGGLE_THEME = async () => {
         body.classList.replace('bg-light', `bg-${currentTheme}`)
         navBar?.classList.replace('navbar-light', `navbar-${currentTheme}`)
         navBar?.classList.replace('bg-light', `bg-${currentTheme}`)
-
         dropdown?.classList.replace(
           'dropdown-menu-light',
           `dropdown-menu-${currentTheme}`
+        )
+        msg_input?.classList.replace(
+          'msg_input_light',
+          `msg_input_${currentTheme}`
+        )
+        sch__input?.classList.replace(
+          'msg_input_light',
+          `msg_input_${currentTheme}`
         )
 
         // Add card classes
@@ -99,52 +114,51 @@ const TOGGLE_THEME = async () => {
         }
       }
     })
-    // message input
-    inputTheme()
+    // inputTheme()
   } catch (e) {
     console.log(e)
   }
 }
 // input theme
-function inputTheme () {
-  let message_input = document.querySelector('.Q_n_A_form')
-  let toggle_btn = document.querySelector('#theme-toggle')
+// function inputTheme () {
+//   let message_input = document.querySelector('.Q_n_A_form')
+//   let toggle_btn = document.querySelector('#theme-toggle')
 
-  let initial_theme = localStorage.getItem('input__theme')
-  if (!initial_theme) initial_theme = '_light_'
+//   let initial_theme = localStorage.getItem('input__theme')
+//   if (!initial_theme) initial_theme = '_light_'
 
-  message_input?.classList.add(`input_group${initial_theme && initial_theme}`)
-  toggle_btn?.addEventListener('change', function (e) {
-    if (e.target.checked) {
-      message_input?.classList.replace(
-        'input_group_light_',
-        'input_group_dark_'
-      )
-      localStorage.setItem('input__theme', '_dark_')
-    } else {
-      message_input?.classList.replace(
-        'input_group_dark_',
-        'input_group_light_'
-      )
-      localStorage.setItem('input__theme', '_light_')
-    }
-  })
+//   message_input?.classList.add(`input_group${initial_theme && initial_theme}`)
+//   toggle_btn?.addEventListener('change', function (e) {
+//     if (e.target.checked) {
+//       message_input?.classList.replace(
+//         'input_group_light_',
+//         'input_group_dark_'
+//       )
+//       localStorage.setItem('input__theme', '_dark_')
+//     } else {
+//       message_input?.classList.replace(
+//         'input_group_dark_',
+//         'input_group_light_'
+//       )
+//       localStorage.setItem('input__theme', '_light_')
+//     }
+//   })
 
-  window.addEventListener('storage', function (e) {
-    if (e.key === 'input__theme') {
-      initial_theme = e.newValue
-      message_input?.classList.replace(
-        'input_group_light_',
-        `input_group-${initial_theme}`
-      )
+//   window.addEventListener('storage', function (e) {
+//     if (e.key === 'input__theme') {
+//       initial_theme = e.newValue
+//       message_input?.classList.replace(
+//         'input_group_light_',
+//         `input_group-${initial_theme}`
+//       )
 
-      if (initial_theme === '_dark_') {
-        toggle_btn.checked = true
-      } else {
-        toggle_btn.checked = false
-      }
-    }
-  })
-}
+//       if (initial_theme === '_dark_') {
+//         toggle_btn.checked = true
+//       } else {
+//         toggle_btn.checked = false
+//       }
+//     }
+//   })
+// }
 
 export { TOGGLE_THEME }
