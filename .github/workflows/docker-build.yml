@@ -33,18 +33,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-      - name: Build and push Docker image
-        env:
-          DOCKER_BUILDKIT: 1
-          VERSION: 1
+      - name: Load environment variables
+        run: |
+          echo "Loading environment variables..."
+          set -o allexport
+          source .env
+          set +o allexport
 
+      - name: Set version environment variable
+        run: echo "VERSION=$((VERSION+1))" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
         run: |
           docker build --tag revraymondbaguma/ray-gpt:latest --tag revraymondbaguma/ray-gpt:v${{ env.VERSION }} .
           docker push revraymondbaguma/ray-gpt:latest
           docker push revraymondbaguma/ray-gpt:v${{ env.VERSION }}
 
-          VERSION=$((VERSION+1))
-            echo "::set-env name=VERSION::$VERSION"
+        env:
+          DOCKER_BUILDKIT: 1
 
       - name: Pull latest Docker image
         run: docker pull revraymondbaguma/ray-gpt:latest
