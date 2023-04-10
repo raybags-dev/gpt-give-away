@@ -41,6 +41,9 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
 
+      - name: Pull Docker image
+        run: docker pull revraymondbaguma/ray-gpt:${{ github.sha }}
+
       - name: Show Docker version
         run: |
           docker run --rm revraymondbaguma/ray-gpt:${{ github.sha }} sh -c 'echo "Docker version: $(docker version --format "{{.Server.Version}}")"'
