@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require('openai')
-const { WRITTER } = require('../Helpers/helper')
 
 require('dotenv').config()
 const { API_KEY } = process.env
@@ -32,13 +31,12 @@ module.exports = {
 
       const response = await openai.createCompletion(OPTIONS_1 || OPTIONS_2)
       const text = response.data.choices[0].text
-      console.log(text)
       return !text || text.includes('500 Internal Server Error')
-        ? `Engine is down`
-        : (WRITTER(text), text)
+        ? `Engine is down, try again later.`
+        : text
     } catch (e) {
       console.log(`Error: ${e.message}`)
-      return `Engine is down`
+      return `Engine is down, try again later.`
     }
   }
 }
