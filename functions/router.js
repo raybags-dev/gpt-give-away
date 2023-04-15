@@ -10,10 +10,6 @@ const asyncMiddleware = require('../middleware/asyncErros')
 // cache
 let cache = apicache.middleware
 
-// ;(async () => {
-//   await GPT_5('hi')
-// })()
-
 const {
   loginUser,
   authMiddleware,
@@ -26,7 +22,7 @@ const { USER_MODEL, USER_ID_MODEL } = require('../src/models/user')
 const { GPT_RESPONSE } = require('../src/models/responseModel')
 const { default: mongoose } = require('mongoose')
 //fallback page path
-const fallbackPagePath = path.join(__dirname, '../errorPage/noConnection.html')
+const fallbackPagePath = path.join(__dirname, '../errorPage/error.html')
 // create user
 async function CreateUser (app) {
   app.post('/raybags/v1/wizard/users', async (req, res) => {
@@ -183,6 +179,7 @@ function AllUserDocs (app) {
   app.post(
     '/raybags/v1/wizard/data/user-docs',
     authMiddleware,
+    cache('2 minutes'),
     asyncMiddleware(async (req, res) => {
       const isAdmin = req.user.isAdmin
       let query
@@ -209,6 +206,7 @@ function GetAllPaginatedDocs (app) {
   app.post(
     '/raybags/v1/wizard/data/documents-all',
     authMiddleware,
+    cache('2 minutes'),
     asyncMiddleware(async (req, res) => {
       const isAdmin = req.user.isAdmin
       let query
@@ -333,6 +331,7 @@ function FindUser (app) {
   app.post(
     '/raybags/v1/wizard/user/token',
     authMiddleware,
+    cache('2 minutes'),
     asyncMiddleware(async (req, res) => {
       try {
         const userEmail = req.body.email

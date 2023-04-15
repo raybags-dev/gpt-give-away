@@ -152,7 +152,7 @@
         }
 
         .__2nd__main_out {
-            height: 78vh !important;
+            height: 82vh !important;
             overflow: hidden;
         }
 
@@ -259,14 +259,6 @@
         }
 
         @media screen and (max-width:989px) {
-            #usage-btn {
-                top: 7%;
-                left: 94%;
-                width: 30px;
-                height: 30px;
-                opacity: .3;
-            }
-
             #usage-btn:hover {
                 opacity: 1;
             }
@@ -274,7 +266,11 @@
 
         @media screen and (max-width:768px) {
             #usage-btn {
-                left: 90%;
+                left: -1.8%;
+                bottom: 0%;
+                background-color: transparent;
+                opacity: .4;
+                text-shadow: 0px 2px 2px gray;
             }
 
             #profilePic {
@@ -331,9 +327,6 @@
                 font-size: .78rem;
             }
 
-            #usage-btn {
-                left: 85%;
-            }
 
             #profBtn {
                 float: center;
@@ -362,13 +355,17 @@
                 display: none;
             }
 
-            .theme-toggle {
+            /* .theme-toggle {
                 padding-bottom: 1rem;
-            }
+            }*/
 
             header {
                 min-width: 100%;
                 text-align: center;
+            }
+
+            .search_db_form {
+                min-width: 100% !important;
             }
         }
 
@@ -409,10 +406,22 @@
             box-shadow: none;
         }
 
+        #search____input {
+            border-color: transparent transparent transparent transparent;
+            background-color: transparent !important;
+            box-shadow: none;
+            width: 50%;
+            transition: .3s;
+        }
+
         #qn-inpuut:focus,
         #search____input:focus {
             border-color: #04adc31a transparent #04adc3e6 transparent;
             box-shadow: none;
+        }
+
+        #search____input:focus {
+            width: 100%;
         }
 
         .msg_input_dark {
@@ -431,20 +440,23 @@
 
 <body>
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand " href="#">
-                <img src="./images/logo.png" alt="" width=35" height="35" style="border-radius: 50%;"
-                    class="d-inline-block align-text-top">
-            </a>
+        <div class="container-fluid ">
+            <div class="d-flex justify-content-center align-content-center"
+                style="display:flex;justify-content:flex-center; align-items:center;">
+                <a class="navbar-brand row" href="#">
+                    <img src="./images/logo.png" alt="" width=35" height="35" style="border-radius: 50%;"
+                        class=" align-text-top">
+                </a>
+                <div class="theme-toggle float-end">
+                    <input type="checkbox" id="theme-toggle" class="theme-toggle__checkbox shadow" />
+                    <label for="theme-toggle" class="theme-toggle__label"></label>
+                </div>
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-toggle" class="theme-toggle__checkbox shadow" />
-                <label for="theme-toggle" class="theme-toggle__label"></label>
-            </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -461,10 +473,6 @@
                         <a class="nav-link log_out_btn" style="text-decoration:none !important;" href="#">Logout</a>
                     </li>
                 </ul>
-                <form class="d-flex search_db_form" role="search">
-                    <input id="search____input" autocomplete="off" class="form-control me-2" type="search"
-                        placeholder="Search..." aria-label="Search">
-                </form>
             </div>
         </div>
     </nav>
@@ -472,7 +480,13 @@
         <a class="deleAnchor" style="display:none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
         <div class="container __2nd__main_out">
             <div id="__outter1_container" class="container">
-                <p>My assistant</p>
+                <div class="d-flex justify-content-between align-items-center flex-wrap container container-fluid p-0">
+                    <p>My assistant</p>
+                    <form class="d-flex search_db_form p-0" role="search">
+                        <input id="search____input" autocomplete="off" class="form-control me-2"
+                            style="padding-left: 1px;" type="search" placeholder="Search..." aria-label="Search">
+                    </form>
+                </div>
                 <div id="RES_container" class="container container-fluid  scroll__inner p-1">
                 </div>
             </div>

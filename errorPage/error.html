@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ray-gpt-v1</title>
+    <title>docs-uploader</title>
     <!-- favicon -->
     <link rel="icon" type="image/png" style="border-radius: 50px; filter: grayscale(100%) !important;" sizes="32x32"
         href="https://github.com/raybags-web-dev/image_base/blob/master/images/logo/logo9_5_21257.jpeg?raw=true" />
@@ -30,49 +30,19 @@
         }
 
         .loader:after {
-            box-shadow: 0 2px 0 #FF3D00 inset;
+            box-shadow: 0 2px 2px 2px #FF3D00 inset;
             animation: rotate 1.5s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0)
-            }
-
-            100% {
-                transform: rotate(360deg)
-            }
-        }
-
-        img {
-            position: absolute;
-            transition: 30s;
-            animation: panInOut infinite ease-in 30s;
-        }
-
-        @keyframes panInOut {
-            0% {
-                transform: scale(1.0);
-            }
-
-            50% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1.0);
-            }
         }
     </style>
 </head>
 
 <body class="bg-dark">
     <!-- As a link -->
-    <nav class="navbar navbar-light bg-dark" style="z-index: 100 !important;">
+    <nav class="navbar navbar-light bg-transparent" style="z-index: 100 !important;">
         <div class="container-fluid">
-            <a class="navbar-brand text-white" href="/">WIZARD</a>
-            <div class="d-flex bg-dark">
-                <a class="btn btn-outline-secondary" href="/" type="submit">Back Home</a>
+            <div class="d-flex bg-transparent">
+                <a class="btn btn-outline-transparent float-start text-danger text-uppercase" href="/index.html"
+                    type="submit">Back Home</a>
             </div>
         </div>
     </nav>
@@ -81,7 +51,7 @@
     <main class="container-fluid">
         <div class="container-fluid p-0 d-flex align-items-center justify-content-center"
             style="position:fixed; top:0; left:0; right:0; bottom:0; overflow:hidden;">
-            <img src="https://github.com/raybags-web-dev/image_base/blob/master/images/background/sk2.jpg?raw=true"
+            <img src="https://github.com/raybags-web-dev/image_base/blob/master/images/stduio-2035349_1280.jpg?raw=true"
                 class="img-fluid" alt="..." style="object-fit: cover; width: 100%; height: 100%;">
         </div>
 

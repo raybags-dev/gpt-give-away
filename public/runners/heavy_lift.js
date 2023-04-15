@@ -37,7 +37,7 @@ function showNotification (message = '...') {
     'alert alert-transparent p-1 rounded showNotification'
   notification.setAttribute('role', 'alert')
   notification.style.cssText =
-    'min-width:fit-content;font-size:0.8rem;font-style:italic;'
+    'min-width:fit-content;font-size:0.7rem;font-style:italic;'
   // Create the message element and add it to the notification
   const messageElement = document.createElement('p')
   messageElement.innerText = message || 'Nothing to see...'
