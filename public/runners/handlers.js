@@ -37,7 +37,7 @@ function generateDeleteModel () {
   let modalHTML = `
           <div class="modal fade delete_modell" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered ">
-            <div id="dele-mole" class="modal-content" style="backdrop-filter:blur(10px); background: rgb(23, 36, 47, .3) !important;">
+            <div id="dele-mole" class="modal-content bg-light text-dark" style="backdrop-filter:blur(10px) !important;">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel">Are you sure ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
